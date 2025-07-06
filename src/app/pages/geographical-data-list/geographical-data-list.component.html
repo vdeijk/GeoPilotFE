@@ -1,4 +1,9 @@
 <div class="geo-list-container">
   <h2>Geographical Data</h2>
-  <app-table [columns]="columns" [data]="data"></app-table>
+  <app-table 
+    [columns]="columns" 
+    [data]="filteredSortedData"
+    [sortField]="sortFieldString"
+    [sortOrder]="sortService.sortOrder"
+    (sort)="onSort($event)"></app-table>
 </div>

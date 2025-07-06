@@ -2,7 +2,15 @@
   <table class="table-container">
     <thead>
       <tr class="table-header">
-        <th class="table-cell" *ngFor="let col of columns">{{ col }}</th>
+        <th class="table-cell" *ngFor="let col of columns" (click)="onSort(col)" style="cursor:pointer">
+          <span class="header-flex">
+            <span>{{ col }}</span>
+            <span class="sort-icon">
+              <span *ngIf="sortField === col">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
+              <span *ngIf="sortField !== col" style="visibility:hidden;">▲</span>
+            </span>
+          </span>
+        </th>
       </tr>
     </thead>
     <tbody>
