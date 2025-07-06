@@ -15,7 +15,6 @@ export class TablePageService {
     this.endpointService.getData('api/GeographicalData').subscribe({
       next: (data) => {
         this.dataSubject.next(data as any[]);
-        console.log('API data:', data);
       },
       error: (err) => {
         console.error('API error:', err);

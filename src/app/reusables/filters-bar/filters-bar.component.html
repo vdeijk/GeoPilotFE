@@ -1,6 +1,11 @@
 <div class="filters-bar">
-  <app-text-input placeholder="Openbare ruimte" label="Openbare ruimte"></app-text-input>
-  <app-text-input placeholder="Huisnummer" label="Huisnummer"></app-text-input>
-  <app-text-input placeholder="Postcode" label="Postcode"></app-text-input>
-  <app-text-input placeholder="Woonplaats" label="Woonplaats"></app-text-input>
+  <app-text-input
+    *ngFor="let field of filterFields; let i = index"
+    [placeholder]="field.placeholder || ''"
+    [label]="field.label"
+    [required]="field.required || false"
+    [value]="field.value"
+    (valueChange)="onValueChange(i, $event)"
+    [maxLength]="field.maxLength"
+  ></app-text-input>
 </div>

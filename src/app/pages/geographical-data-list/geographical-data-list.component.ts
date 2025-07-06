@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { tableHeaders } from '../../data/GeographicalData';
+import { TableHeaderModel } from '../../interfaces/TableHeaderModel';
 import { TablePageService } from '../../stores/TablePage.service';
 import { FilterService } from '../../services/filter.service';
 import { SortService } from '../../services/sort.service';
@@ -10,12 +12,7 @@ import { SearchStore } from '../../stores/SearchStore.service';
   styleUrls: ['./geographical-data-list.component.scss']
 })
 export class GeographicalDataListComponent {
-  columns = [
-    'openbareruimte', 'huisnummer', 'huisletter', 'huisnummertoevoeging', 'postcode',
-    'woonplaats', 'gemeente', 'provincie', 'nummeraanduiding', 'verblijfsobjectgebruiksdoel',
-    'oppervlakteverblijfsobject', 'verblijfsobjectstatus', 'object_id', 'object_type',
-    'nevenadres', 'pandid', 'pandstatus', 'pandbouwjaar', 'x', 'y', 'lon', 'lat'
-  ];
+  columns: string[] = tableHeaders.map(h => h.id as string);
   data: any[] = [];
   filteredSortedData: any[] = [];
   sortService = new SortService<any>();

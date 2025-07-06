@@ -1,74 +1,77 @@
 <div class="geo-form-container">
   <h2>Add / Edit Geographical Data</h2>
-  <form>
+  <form [formGroup]="formPageService.form" (ngSubmit)="formPageService.submit(endpointService)">
     <div class="form-section form-section--static">
       <h3>Address</h3>
       <app-text-input
         label="Openbareruimte"
-        [(value)]="formData.openbareruimte"
+        formControlName="openbareruimte"
         [required]="true"
       ></app-text-input>
       <app-text-input
         label="Huisnummer"
-        [(value)]="formData.huisnummer"
+        formControlName="huisnummer"
         [required]="true"
+        [type]="'number'"
       ></app-text-input>
       <app-text-input
         label="Huisletter"
-        [(value)]="formData.huisletter"
+        formControlName="huisletter"
       ></app-text-input>
       <app-text-input
         label="Huisnummertoevoeging"
-        [(value)]="formData.huisnummertoevoeging"
+        formControlName="huisnummertoevoeging"
+        [type]="'number'"
       ></app-text-input>
       <app-text-input
         label="Postcode"
-        [(value)]="formData.postcode"
+        formControlName="postcode"
         [required]="true"
       ></app-text-input>
       <app-text-input
         label="Woonplaats"
-        [(value)]="formData.woonplaats"
+        formControlName="woonplaats"
         [required]="true"
       ></app-text-input>
       <app-text-input
         label="Gemeente"
-        [(value)]="formData.gemeente"
+        formControlName="gemeente"
       ></app-text-input>
       <app-text-input
         label="Provincie"
-        [(value)]="formData.provincie"
+        formControlName="provincie"
       ></app-text-input>
     </div>
     <app-accordion title="Object Information">
       <div class="form-section">
         <app-text-input
           label="Nummeraanduiding"
-          [(value)]="formData.nummeraanduiding"
+          formControlName="nummeraanduiding"
         ></app-text-input>
         <app-text-input
           label="Verblijfsobjectgebruiksdoel"
-          [(value)]="formData.verblijfsobjectgebruiksdoel"
+          formControlName="verblijfsobjectgebruiksdoel"
         ></app-text-input>
         <app-text-input
           label="Oppervlakte verblijfsobject"
-          [(value)]="formData.oppervlakteverblijfsobject"
+          formControlName="oppervlakteverblijfsobject"
+          [type]="'number'"
         ></app-text-input>
         <app-text-input
           label="Verblijfsobjectstatus"
-          [(value)]="formData.verblijfsobjectstatus"
+          formControlName="verblijfsobjectstatus"
         ></app-text-input>
         <app-text-input
           label="Object ID"
-          [(value)]="formData.object_id"
+          formControlName="objectId"
         ></app-text-input>
         <app-text-input
           label="Object type"
-          [(value)]="formData.object_type"
+          formControlName="objectType"
         ></app-text-input>
         <app-text-input
           label="Nevenadres"
-          [(value)]="formData.nevenadres"
+          formControlName="nevenadres"
         ></app-text-input>
       </div>
     </app-accordion>
@@ -76,26 +79,27 @@
       <div class="form-section">
         <app-text-input
           label="Pandid"
-          [(value)]="formData.pandid"
+          formControlName="pandid"
         ></app-text-input>
         <app-text-input
           label="Pandstatus"
-          [(value)]="formData.pandstatus"
+          formControlName="pandstatus"
         ></app-text-input>
         <app-text-input
           label="Pandbouwjaar"
-          [(value)]="formData.pandbouwjaar"
+          formControlName="pandbouwjaar"
+          [type]="'number'"
         ></app-text-input>
       </div>
     </app-accordion>
     <app-accordion title="Location">
       <div class="form-section">
-        <app-text-input label="X" [(value)]="formData.x"></app-text-input>
-        <app-text-input label="Y" [(value)]="formData.y"></app-text-input>
-        <app-text-input label="Lon" [(value)]="formData.lon"></app-text-input>
-        <app-text-input label="Lat" [(value)]="formData.lat"></app-text-input>
+        <app-text-input label="X" formControlName="x" [type]="'number'"></app-text-input>
+        <app-text-input label="Y" formControlName="y" [type]="'number'"></app-text-input>
+        <app-text-input label="Lon" formControlName="lon" [type]="'number'"></app-text-input>
+        <app-text-input label="Lat" formControlName="lat" [type]="'number'"></app-text-input>
       </div>
     </app-accordion>
-      <app-button label="Submit" type="submit"></app-button>
+    <app-button label="Submit" type="submit"></app-button>
   </form>
 </div>
