@@ -1,0 +1,14 @@
+<div class="table-scroll-wrapper">
+  <table class="table-container">
+    <thead>
+      <tr class="table-header">
+        <th class="table-cell" *ngFor="let col of columns">{{ col }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-row" *ngFor="let row of data">
+        <td class="table-cell" *ngFor="let col of columns">{{ row[col] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

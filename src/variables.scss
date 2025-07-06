@@ -1,0 +1,34 @@
+:root {
+  --color-primary: #4a90e2;
+  --color-primary-hover: #3e8e41;
+  --color-form-field: #e3f0fc;
+  --color-background: #f4f8fd;
+  --color-grey: #e0e0e0;
+  --color-grey-hover: #dcdcdc;
+  --color-white-hover: #c8e6c9;
+  --color-border: #ddd;
+  --color-text: #222222;
+  --color-secondary: #ffd700;
+  --color-red: #ef767a;
+  --color-red-hover: #d6454a;
+  --color-white: #fdfdfd;
+  --color-grey-opacity: rgba(240, 240, 240, 0.84);
+  --color-white-opacity: rgba(253, 253, 253, 0.93);
+  --color-black: #222;
+  --color-black-soft: #595959;
+  --color-disabled: #c7d8ee;
+
+  --font-primary: "Poppins", sans-serif;
+
+  --spacing-small: 1rem;
+  --spacing-medium: 2rem;
+
+  --border-radius-small: 4px;
+  --border-radius-large: 8px;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --box-shadow-light: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+}
