@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchStore } from '../../stores/SearchStore.service';
+import { FiltersStore } from '../../stores/FiltersStore.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -7,9 +7,9 @@ import { SearchStore } from '../../stores/SearchStore.service';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent {
-  constructor(public searchStore: SearchStore) {}
+  constructor(public filtersStore: FiltersStore) {}
 
   onSearchChange(value: string) {
-    this.searchStore.setSearchTerm(value);
+    this.filtersStore.setFilter('search', value);
   }
 }

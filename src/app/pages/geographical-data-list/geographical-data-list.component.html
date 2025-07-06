@@ -6,5 +6,6 @@
     [data]="filteredSortedData"
     [sortField]="sortFieldString"
     [sortOrder]="sortService.sortOrder"
-    (sort)="onSort($event)"></app-table>
+    (sort)="onSort($event)"
+    (rowClick)="onRowClick($event)"></app-table>
 </div>

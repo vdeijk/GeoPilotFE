@@ -3,6 +3,7 @@
   [disabled]="disabled" 
   (click)="onClick()" 
   class="app-btn"
+  [ngStyle]="customStyles"
 >
   <ng-container *ngIf="icon">
     <span class="btn-icon">{{ icon }}</span>

@@ -11,7 +11,6 @@ export class TableComponent {
   @Input() data: any[] = [];
   @Input() sortField: string | null = null;
   @Input() sortOrder: 'asc' | 'desc' = 'asc';
-  @Input() selectedRow: any = null;
   @Output() sort = new EventEmitter<string>();
   @Output() rowClick = new EventEmitter<any>();
 

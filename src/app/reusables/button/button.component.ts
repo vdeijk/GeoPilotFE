@@ -10,6 +10,7 @@ export class ButtonComponent {
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() disabled: boolean = false;
   @Input() icon?: string;
+  @Input() customStyles?: { [key: string]: string };
   @Output() clicked = new EventEmitter<void>();
 
   onClick() {

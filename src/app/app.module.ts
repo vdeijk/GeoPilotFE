@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './reusables/header/header.component';
@@ -15,12 +15,7 @@ import { ButtonComponent } from './reusables/button/button.component';
 import { AccordionComponent } from './reusables/accordion/accordion.component';
 import { FooterComponent } from './reusables/footer/footer.component';
 import { FiltersBarComponent } from './reusables/filters-bar/filters-bar.component';
-
-const routes: Routes = [
-  { path: '', component: GeographicalDataListComponent },
-  { path: 'add', component: GeographicalDataFormComponent },
-  { path: 'edit/:id', component: GeographicalDataFormComponent }
-];
+import { routes } from './app.routes';
 
 @NgModule({
   declarations: [

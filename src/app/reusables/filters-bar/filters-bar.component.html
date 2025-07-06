@@ -4,7 +4,7 @@
     [placeholder]="field.placeholder || ''"
     [label]="field.label"
     [required]="field.required || false"
-    [value]="field.value"
+    [value]="getFilterValue(field.key)"
     (valueChange)="onValueChange(i, $event)"
     [maxLength]="field.maxLength"
   ></app-text-input>

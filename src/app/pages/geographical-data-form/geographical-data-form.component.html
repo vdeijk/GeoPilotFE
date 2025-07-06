@@ -1,5 +1,5 @@
 <div class="geo-form-container">
-  <h2>Add / Edit Geographical Data</h2>
+  <h2>{{ isEditMode ? 'Edit Data' : 'Add Data' }}</h2>
   <form [formGroup]="formPageService.form" (ngSubmit)="formPageService.submit(endpointService)">
     <div class="form-section form-section--static">
       <h3>Address</h3>
@@ -100,6 +100,11 @@
         <app-text-input label="Lat" formControlName="lat" [type]="'number'"></app-text-input>
       </div>
     </app-accordion>
-    <app-button label="Submit" type="submit"></app-button>
+    <div class="form-actions-row">
+      <app-button label="Submit" type="submit"></app-button>
+      <app-button *ngIf="isEditMode" label="Delete" type="button" (click)="onDelete()"
+        [customStyles]="{ background: 'var(--color-red)', color: 'var(--color-white)' }"
+      ></app-button>
+    </div>
   </form>
 </div>

@@ -12,7 +12,7 @@ export class TablePageService {
   }
 
   fetchTableData() {
-    this.endpointService.getData('api/GeographicalData').subscribe({
+    this.endpointService.getData('GeographicalData').subscribe({
       next: (data) => {
         this.dataSubject.next(data as any[]);
       },

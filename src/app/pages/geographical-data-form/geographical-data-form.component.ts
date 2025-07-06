@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EndpointService } from '../../api/endpoint.service';
 import { FormPageService } from '../../stores/FormPage.service';
 
@@ -39,7 +39,8 @@ export class GeographicalDataFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public endpointService: EndpointService, // Make public for template access
-    public formPageService: FormPageService // Make public for template access
+    public formPageService: FormPageService, // Make public for template access
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -48,10 +49,10 @@ export class GeographicalDataFormComponent implements OnInit {
       this.isEditMode = !!this.id;
       if (this.isEditMode && this.id) {
         this.endpointService
-          .getData<any>('geodata', this.id)
+          .getData<any>('GeographicalData', this.id)
           .subscribe((data: any) => {
             if (data) {
-              this.formData = { ...this.formData, ...data };
+              this.formPageService.patchValue(data);
             }
           });
       }
@@ -74,6 +75,14 @@ export class GeographicalDataFormComponent implements OnInit {
     } else {
       // Optionally mark all fields as touched to show validation errors
       this.formPageService.form.markAllAsTouched();
+    }
+  }
+
+  onDelete() {
+    if (this.id) {
+      this.formPageService.delete(this.endpointService, Number(this.id), () => {
+        this.router.navigate(['/']);
+      });
     }
   }
 }

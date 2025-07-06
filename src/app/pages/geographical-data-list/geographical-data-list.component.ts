@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { tableHeaders } from '../../data/GeographicalData';
 import { TableHeaderModel } from '../../interfaces/TableHeaderModel';
 import { TablePageService } from '../../stores/TablePage.service';
 import { FilterService } from '../../services/filter.service';
 import { SortService } from '../../services/sort.service';
-import { SearchStore } from '../../stores/SearchStore.service';
+import { FiltersStore } from '../../stores/FiltersStore.service';
 
 @Component({
   selector: 'app-geographical-data-list',
@@ -12,17 +13,23 @@ import { SearchStore } from '../../stores/SearchStore.service';
   styleUrls: ['./geographical-data-list.component.scss']
 })
 export class GeographicalDataListComponent {
-  columns: string[] = tableHeaders.map(h => h.id as string);
+  columns: TableHeaderModel<any>[] = tableHeaders;
   data: any[] = [];
   filteredSortedData: any[] = [];
   sortService = new SortService<any>();
+  filters: { [key: string]: string } = {};
 
-  constructor(private tablePageService: TablePageService, private searchStore: SearchStore) {
+  constructor(
+    private tablePageService: TablePageService,
+    private filtersStore: FiltersStore,
+    private router: Router
+  ) {
     this.tablePageService.data$.subscribe(apiData => {
       this.data = apiData;
       this.applyFiltersAndSorting();
     });
-    this.searchStore.searchTerm$.subscribe(() => {
+    this.filtersStore.filters$.subscribe(filters => {
+      this.filters = filters;
       this.applyFiltersAndSorting();
     });
   }
@@ -32,14 +39,32 @@ export class GeographicalDataListComponent {
     this.applyFiltersAndSorting();
   }
 
+  onRowClick(row: any) {
+    if (row && row.id) {
+      this.router.navigate(['/edit', row.id]);
+    }
+  }
+
   applyFiltersAndSorting() {
     let filtered = this.data;
-    const searchTerm = this.searchStore['searchTermSubject'].getValue();
+    const searchTerm = this.filters['search'] || '';
+    // Apply search filter
     if (searchTerm && searchTerm.trim() !== '') {
       filtered = filtered.filter(item =>
-        (item.openbareruimte || '').toLowerCase().includes(searchTerm.toLowerCase())
+        Object.values(item).some(val =>
+          val && val.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        )
       );
     }
+    // Apply all other filters (except 'search')
+    Object.entries(this.filters).forEach(([key, value]) => {
+      if (key === 'search') return;
+      if (value && value.trim() !== '') {
+        filtered = filtered.filter(item =>
+          (item[key] || '').toString().toLowerCase().includes(value.toLowerCase())
+        );
+      }
+    });
     this.filteredSortedData = this.sortService.sortItems(filtered);
   }
 

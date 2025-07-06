@@ -2,20 +2,25 @@
   <table class="table-container">
     <thead>
       <tr class="table-header">
-        <th class="table-cell" *ngFor="let col of columns" (click)="onSort(col)" style="cursor:pointer">
+        <th class="table-cell" *ngFor="let col of columns" (click)="col.sortable ? onSort(col) : null" [class.sortable]="col.sortable" [style.cursor]="col.sortable ? 'pointer' : 'default'">
           <span class="header-flex">
-            <span>{{ col }}</span>
-            <span class="sort-icon">
-              <span *ngIf="sortField === col">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
-              <span *ngIf="sortField !== col" style="visibility:hidden;">▲</span>
+            <span>{{ col.label }}</span>
+            <span class="sort-icon" *ngIf="col.sortable">
+              <ng-container *ngIf="sortField === col.id.toString(); else unsorted">
+                <span *ngIf="sortOrder === 'asc'">▲</span>
+                <span *ngIf="sortOrder === 'desc'">▼</span>
+              </ng-container>
+              <ng-template #unsorted>
+                <span class="sortable-indicator">⇅</span>
+              </ng-template>
             </span>
           </span>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr class="table-row" *ngFor="let row of data">
-        <td class="table-cell" *ngFor="let col of columns">{{ row[col] }}</td>
+      <tr class="table-row" *ngFor="let row of data" (click)="onRowClick(row)" style="cursor:pointer">
+        <td class="table-cell" *ngFor="let col of columns">{{ row[col.id] }}</td>
       </tr>
     </tbody>
   </table>

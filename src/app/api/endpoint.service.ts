@@ -5,12 +5,12 @@ import { catchError, finalize } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class EndpointService {
-  private BASE_URL = '';
+  private BASE_URL = 'http://localhost:5053/api';
   public isLoading = false;
 
   constructor(private http: HttpClient) {
-    // Optionally, set BASE_URL from environment
-    this.BASE_URL = '';
+    // Set BASE_URL to backend API root
+    this.BASE_URL = 'http://localhost:5053/api';
   }
 
   setBaseUrl(url: string) {

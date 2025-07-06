@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { filterFields } from '../../data/GeographicalData';
+import { FiltersStore } from '../../stores/FiltersStore.service';
 
 @Component({
   selector: 'app-filters-bar',
@@ -7,10 +8,20 @@ import { filterFields } from '../../data/GeographicalData';
   styleUrls: ['./filters-bar.component.scss']
 })
 export class FiltersBarComponent {
-  filterFields = filterFields.map(f => ({ ...f, value: '' })); // Add value property for binding
+  filterFields = filterFields;
+
+  constructor(public filtersStore: FiltersStore) {}
+
+  getFilterValue(key: string): string {
+    let value = '';
+    this.filtersStore.filters$.subscribe(filters => {
+      value = filters[key] ?? '';
+    }).unsubscribe();
+    return value;
+  }
 
   onValueChange(idx: number, newValue: string) {
-    this.filterFields[idx].value = newValue;
-    // TODO: Emit filter change event to parent if needed
+    const key = this.filterFields[idx].key;
+    this.filtersStore.setFilter(key, newValue);
   }
 }

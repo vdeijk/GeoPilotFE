@@ -29,6 +29,13 @@ form {
   padding: var(--spacing-small);
 }
 
+.form-actions-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
 
 @media (max-width: 700px) {
   .form-section {
