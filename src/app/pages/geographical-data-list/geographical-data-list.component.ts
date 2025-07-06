@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TablePageService } from '../../stores/TablePage.service';
 import { FilterService } from '../../services/filter.service';
 import { SortService } from '../../services/sort.service';
+import { SearchStore } from '../../stores/SearchStore.service';
 
 @Component({
   selector: 'app-geographical-data-list',
@@ -17,19 +18,16 @@ export class GeographicalDataListComponent {
   ];
   data: any[] = [];
   filteredSortedData: any[] = [];
-  searchQuery: string = '';
   sortService = new SortService<any>();
 
-  constructor(private tablePageService: TablePageService) {
+  constructor(private tablePageService: TablePageService, private searchStore: SearchStore) {
     this.tablePageService.data$.subscribe(apiData => {
       this.data = apiData;
       this.applyFiltersAndSorting();
     });
-  }
-
-  onSearchChange(query: string) {
-    this.searchQuery = query;
-    this.applyFiltersAndSorting();
+    this.searchStore.searchTerm$.subscribe(() => {
+      this.applyFiltersAndSorting();
+    });
   }
 
   onSort(field: string) {
@@ -38,7 +36,13 @@ export class GeographicalDataListComponent {
   }
 
   applyFiltersAndSorting() {
-    let filtered = FilterService.filterBySearchQuery(this.data, this.searchQuery, this.columns);
+    let filtered = this.data;
+    const searchTerm = this.searchStore['searchTermSubject'].getValue();
+    if (searchTerm && searchTerm.trim() !== '') {
+      filtered = filtered.filter(item =>
+        (item.openbareruimte || '').toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
     this.filteredSortedData = this.sortService.sortItems(filtered);
   }
 

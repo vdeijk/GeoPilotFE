@@ -1,98 +1,101 @@
 <div class="geo-form-container">
   <h2>Add / Edit Geographical Data</h2>
   <form>
-    <app-text-input
-      label="Openbareruimte"
-      [(value)]="formData.openbareruimte"
-      [required]="true"
-    ></app-text-input>
-    <app-text-input
-      label="Huisnummer"
-      [(value)]="formData.huisnummer"
-      [required]="true"
-    ></app-text-input>
-    <app-text-input
-      label="Huisletter"
-      [(value)]="formData.huisletter"
-    ></app-text-input>
-    <app-text-input
-      label="Huisnummertoevoeging"
-      [(value)]="formData.huisnummertoevoeging"
-    ></app-text-input>
-    <app-text-input
-      label="Postcode"
-      [(value)]="formData.postcode"
-      [required]="true"
-    ></app-text-input>
-    <app-text-input
-      label="Woonplaats"
-      [(value)]="formData.woonplaats"
-      [required]="true"
-    ></app-text-input>
-    <app-text-input
-      label="Gemeente"
-      [(value)]="formData.gemeente"
-    ></app-text-input>
-    <app-text-input
-      label="Provincie"
-      [(value)]="formData.provincie"
-    ></app-text-input>
-    <app-text-input
-      label="Nummeraanduiding"
-      [(value)]="formData.nummeraanduiding"
-    ></app-text-input>
-    <app-text-input
-      label="Verblijfsobjectgebruiksdoel"
-      [(value)]="formData.verblijfsobjectgebruiksdoel"
-    ></app-text-input>
-    <app-text-input
-      label="Oppervlakte verblijfsobject"
-      [(value)]="formData.oppervlakteverblijfsobject"
-    ></app-text-input>
-    <app-text-input
-      label="Verblijfsobjectstatus"
-      [(value)]="formData.verblijfsobjectstatus"
-    ></app-text-input>
-    <app-text-input
-      label="Object ID"
-      [(value)]="formData.object_id"
-    ></app-text-input>
-    <app-text-input
-      label="Object type"
-      [(value)]="formData.object_type"
-    ></app-text-input>
-    <app-text-input
-      label="Nevenadres"
-      [(value)]="formData.nevenadres"
-    ></app-text-input>
-    <app-text-input
-      label="Pandid"
-      [(value)]="formData.pandid"
-    ></app-text-input>
-    <app-text-input
-      label="Pandstatus"
-      [(value)]="formData.pandstatus"
-    ></app-text-input>
-    <app-text-input
-      label="Pandbouwjaar"
-      [(value)]="formData.pandbouwjaar"
-    ></app-text-input>
-    <app-text-input
-      label="X"
-      [(value)]="formData.x"
-    ></app-text-input>
-    <app-text-input
-      label="Y"
-      [(value)]="formData.y"
-    ></app-text-input>
-    <app-text-input
-      label="Lon"
-      [(value)]="formData.lon"
-    ></app-text-input>
-    <app-text-input
-      label="Lat"
-      [(value)]="formData.lat"
-    ></app-text-input>
-    <!-- Dropdowns and date pickers can be added later -->
+    <div class="form-section form-section--static">
+      <h3>Address</h3>
+      <app-text-input
+        label="Openbareruimte"
+        [(value)]="formData.openbareruimte"
+        [required]="true"
+      ></app-text-input>
+      <app-text-input
+        label="Huisnummer"
+        [(value)]="formData.huisnummer"
+        [required]="true"
+      ></app-text-input>
+      <app-text-input
+        label="Huisletter"
+        [(value)]="formData.huisletter"
+      ></app-text-input>
+      <app-text-input
+        label="Huisnummertoevoeging"
+        [(value)]="formData.huisnummertoevoeging"
+      ></app-text-input>
+      <app-text-input
+        label="Postcode"
+        [(value)]="formData.postcode"
+        [required]="true"
+      ></app-text-input>
+      <app-text-input
+        label="Woonplaats"
+        [(value)]="formData.woonplaats"
+        [required]="true"
+      ></app-text-input>
+      <app-text-input
+        label="Gemeente"
+        [(value)]="formData.gemeente"
+      ></app-text-input>
+      <app-text-input
+        label="Provincie"
+        [(value)]="formData.provincie"
+      ></app-text-input>
+    </div>
+    <app-accordion title="Object Information">
+      <div class="form-section">
+        <app-text-input
+          label="Nummeraanduiding"
+          [(value)]="formData.nummeraanduiding"
+        ></app-text-input>
+        <app-text-input
+          label="Verblijfsobjectgebruiksdoel"
+          [(value)]="formData.verblijfsobjectgebruiksdoel"
+        ></app-text-input>
+        <app-text-input
+          label="Oppervlakte verblijfsobject"
+          [(value)]="formData.oppervlakteverblijfsobject"
+        ></app-text-input>
+        <app-text-input
+          label="Verblijfsobjectstatus"
+          [(value)]="formData.verblijfsobjectstatus"
+        ></app-text-input>
+        <app-text-input
+          label="Object ID"
+          [(value)]="formData.object_id"
+        ></app-text-input>
+        <app-text-input
+          label="Object type"
+          [(value)]="formData.object_type"
+        ></app-text-input>
+        <app-text-input
+          label="Nevenadres"
+          [(value)]="formData.nevenadres"
+        ></app-text-input>
+      </div>
+    </app-accordion>
+    <app-accordion title="Building Information">
+      <div class="form-section">
+        <app-text-input
+          label="Pandid"
+          [(value)]="formData.pandid"
+        ></app-text-input>
+        <app-text-input
+          label="Pandstatus"
+          [(value)]="formData.pandstatus"
+        ></app-text-input>
+        <app-text-input
+          label="Pandbouwjaar"
+          [(value)]="formData.pandbouwjaar"
+        ></app-text-input>
+      </div>
+    </app-accordion>
+    <app-accordion title="Location">
+      <div class="form-section">
+        <app-text-input label="X" [(value)]="formData.x"></app-text-input>
+        <app-text-input label="Y" [(value)]="formData.y"></app-text-input>
+        <app-text-input label="Lon" [(value)]="formData.lon"></app-text-input>
+        <app-text-input label="Lat" [(value)]="formData.lat"></app-text-input>
+      </div>
+    </app-accordion>
+      <app-button label="Submit" type="submit"></app-button>
   </form>
 </div>

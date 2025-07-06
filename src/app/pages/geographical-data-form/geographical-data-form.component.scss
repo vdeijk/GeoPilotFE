@@ -1,19 +1,37 @@
 .geo-form-container {
   display: grid;
-  gap: 1rem;
-  padding: 2rem;
+  gap: var(--spacing-medium);
+  padding: var(--spacing-medium);
   background: #f4f4f4;
-  border-radius: 8px;
+  border-radius: var(--border-radius-large);
 }
 
 form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-medium);
 }
 
+.form-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--spacing-medium);
+}
+
+.form-section h3 {
+  grid-column: 1 / -1;
+}
+
+.form-section--static {
+  background: var(--color-white);
+  border: 1px solid var(--color-grey);
+  border-radius: var(--border-radius-large);
+  padding: var(--spacing-small);
+}
+
+
 @media (max-width: 700px) {
-  form {
+  .form-section {
     grid-template-columns: 1fr;
   }
 }

@@ -1,0 +1,20 @@
+.search-bar-container {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.search-bar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+}
+
+.search-bar-grid > div:first-child {
+  width: 100%;
+}
+
+.search-bar-grid > div:last-child {
+  /* Placeholder for future content */
+}
