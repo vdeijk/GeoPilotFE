@@ -17,6 +17,8 @@ import { routes } from './app.routes';
 import { GlobalErrorHandler } from './utility/global-error-handler';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { Configuration, provideApi } from './api/generated';
+import { environment } from '../environments/environment';
 import { SpinnerComponent } from './reusables/spinner/spinner.component';
 
 @NgModule({
@@ -43,7 +45,8 @@ import { SpinnerComponent } from './reusables/spinner/spinner.component';
     ToastrModule.forRoot()
   ],
   providers: [
-    { provide: ErrorHandler, useClass: GlobalErrorHandler }
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    provideApi({ basePath: environment.apiUrl })
   ],
   bootstrap: [AppComponent]
 })
