@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import fields from '../data/GeographicalData';
+import { normalizeNumberFields } from '../utility/normalize-number-fields';
+import { cleanOptionalFields } from '../utility/clean-optional-fields';
+import { ToastrService } from 'ngx-toastr';
+import { GeographicalData } from '../api/generated/model/geographicalData';
 
 @Injectable({ providedIn: 'root' })
 export class FormPageService {
   private formSubject: BehaviorSubject<FormGroup>;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private toastr: ToastrService) {
     const group: { [key: string]: any } = {};
     (fields as any[])
       .filter((f: any) => f.showInForm)
@@ -18,94 +22,57 @@ export class FormPageService {
     this.formSubject = new BehaviorSubject<FormGroup>(form);
   }
 
-  get form$() {
-    return this.formSubject.asObservable();
-  }
-
   get form(): FormGroup {
     return this.formSubject.value;
   }
 
-  get value$() {
-    return this.form.valueChanges;
-  }
-
-  patchValue(value: Partial<Record<string, any>>) {
+  patchValue(value: Partial<GeographicalData>) {
     this.form.patchValue(value);
   }
 
-  reset(value?: any) {
+  reset(value?: Partial<GeographicalData>) {
     this.form.reset(value);
   }
 
-  submit(endpointService: any) {
-    console.log('Submitting form with value:', this.form.value);
+  async submit(endpointService: any) {
     if (this.form.valid) {
-      const formValue = this.form.value;
-      // Transform formValue: set empty string for number fields to null
-      const transformed: Record<string, any> = { ...formValue };
-      (fields as any[]).forEach(field => {
-        if (field.type === 'number') {
-          if (transformed[field.key] === '' || transformed[field.key] === undefined) {
-            transformed[field.key] = null;
-          } else if (typeof transformed[field.key] !== 'number') {
-            // Try to coerce to number if not already
-            const n = Number(transformed[field.key]);
-            transformed[field.key] = isNaN(n) ? null : n;
-          }
-          // If still not a number, set to null
-          if (transformed[field.key] !== null && typeof transformed[field.key] !== 'number') {
-            transformed[field.key] = null;
-          }
-        }
-      });
-      // Ensure required number fields are valid integers (not null or NaN)
-      if (transformed['huisnummer'] == null || isNaN(transformed['huisnummer'])) {
-        alert('Huisnummer is required and must be a number.');
+      const formValue: GeographicalData = this.form.value;
+      const transformed: GeographicalData = { ...formValue };
+      normalizeNumberFields(transformed as any);
+      if (transformed.huisnummer == null || isNaN(transformed.huisnummer as any)) {
+        this.toastr.error('Huisnummer is required and must be a number.');
         return;
       }
-      if (transformed['oppervlakteverblijfsobject'] == null || isNaN(transformed['oppervlakteverblijfsobject'])) {
-        delete transformed['oppervlakteverblijfsobject']; // Remove if not filled, since not required in minimal form
-      }
-      // Remove invalid number fields (e.g., pandbouwjaar)
-      if (transformed['pandbouwjaar'] == null || isNaN(transformed['pandbouwjaar'])) {
-        delete transformed['pandbouwjaar'];
-      }
-      // Wrap payload for backend
-      // Use correct controller route: GeographicalData (not geodata)
+      cleanOptionalFields(transformed as any);
       const payload = { geographicalData: transformed };
-      console.log('Transformed for backend:', payload);
-      endpointService.postData('GeographicalData', payload).subscribe({
-        next: (response: any) => {
-          console.log('Data submitted successfully:', response);
-        },
-        error: (err: any) => {
-          console.error('Error submitting data:', err);
-        }
-      });
+      try {
+        await endpointService.postData('GeographicalData', payload).toPromise();
+        this.toastr.success('Data submitted successfully!');
+      } catch (err) {
+        this.toastr.error('Error submitting data.');
+        console.error('Error submitting data:', err);
+      }
     } else {
       this.form.markAllAsTouched();
     }
   }
 
-  delete(endpointService: any, id: number, onSuccess?: () => void) {
+  async delete(endpointService: any, id: number, onSuccess?: () => void) {
     if (!id) {
-      alert('No ID provided for deletion.');
+      this.toastr.error('No ID provided for deletion.');
       return;
     }
     if (!confirm('Are you sure you want to delete this record?')) {
       return;
     }
-    endpointService.deleteData('GeographicalData', id).subscribe({
-      next: (response: any) => {
-        console.log('Record deleted successfully:', response);
-        this.reset();
-        if (onSuccess) onSuccess();
-      },
-      error: (err: any) => {
-        console.error('Error deleting record:', err);
-        alert('Failed to delete record.');
-      }
-    });
+    try {
+      await endpointService.deleteData('GeographicalData', id).toPromise();
+      this.toastr.success('Record deleted successfully!');
+      this.reset();
+      if (onSuccess) onSuccess();
+    } catch (err) {
+      this.toastr.error('Failed to delete record.');
+      console.error('Error deleting record:', err);
+    }
   }
 }

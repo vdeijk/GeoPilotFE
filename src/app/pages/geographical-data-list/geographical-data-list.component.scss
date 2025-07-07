@@ -10,17 +10,11 @@
 
 .geo-table {
   display: grid;
-  background: #f9f9f9;
   border-radius: 8px;
   padding: 1rem;
   min-height: 200px;
 }
 
-app-table, .table-scroll-wrapper {
-  min-width: 0;
-  width: 100%;
-}
-
-body, html {
-  overflow-x: hidden;
+.geo-list-h2{
+  margin-bottom: var(--spacing-small);
 }

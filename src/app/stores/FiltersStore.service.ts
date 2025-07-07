@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filterFields } from '../data/GeographicalData';
 
 export interface FiltersState {
@@ -7,7 +7,7 @@ export interface FiltersState {
 }
 
 function getInitialFiltersState(): FiltersState {
-  const state: FiltersState = { search: '' };
+  const state: FiltersState = {};
   for (const f of filterFields) {
     state[f.key] = '';
   }

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class SortService<T> {
-  public sortField: keyof T | null = null;
-  public sortOrder: 'asc' | 'desc' = 'asc';
+  sortField: keyof T | null = null;
+  sortOrder: 'asc' | 'desc' = 'asc';
 
   constructor() {}
 
-  public setSortField(field: keyof T) {
+  setSortField(field: keyof T) {
     if (this.sortField === field) {
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     } else {
@@ -16,7 +16,7 @@ export class SortService<T> {
     }
   }
 
-  public sortItems(items: T[]): T[] {
+  sortItems(items: T[]): T[] {
     if (!this.sortField) return items;
 
     return items.slice().sort((a, b) => {

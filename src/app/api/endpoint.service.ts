@@ -1,23 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class EndpointService {
-  private BASE_URL = 'http://localhost:5053/api';
-  public isLoading = false;
+  isLoading = false;
+  private BASE_URL = environment.apiUrl;
 
-  constructor(private http: HttpClient) {
-    // Set BASE_URL to backend API root
-    this.BASE_URL = 'http://localhost:5053/api';
-  }
+  constructor(private http: HttpClient) {}
 
   setBaseUrl(url: string) {
     this.BASE_URL = url;
   }
 
-  getData<T>(endpoint: string, id?: string, params?: Record<string, any>): Observable<T> {
+  getData<T>(
+    endpoint: string,
+    id?: string,
+    params?: Record<string, any>
+  ): Observable<T> {
     this.isLoading = true;
     let url = `${this.BASE_URL}/${endpoint}/`;
     if (id) url += id;
@@ -27,7 +33,10 @@ export class EndpointService {
     );
   }
 
-  postData<TResponse, TRequest = any>(endpoint: string, data: TRequest): Observable<TResponse> {
+  postData<TResponse, TRequest = any>(
+    endpoint: string,
+    data: TRequest
+  ): Observable<TResponse> {
     this.isLoading = true;
     const url = `${this.BASE_URL}/${endpoint}/`;
     return this.http.post<TResponse>(url, data).pipe(
@@ -54,7 +63,10 @@ export class EndpointService {
     );
   }
 
-  uploadFiles<TResponse = any>(endpoint: string, formData: FormData): Observable<TResponse> {
+  uploadFiles<TResponse = any>(
+    endpoint: string,
+    formData: FormData
+  ): Observable<TResponse> {
     this.isLoading = true;
     const url = `${this.BASE_URL}/${endpoint}/upload`;
     const headers = new HttpHeaders().set('enctype', 'multipart/form-data');
@@ -65,7 +77,6 @@ export class EndpointService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    // Optionally, use a notification service here
     console.error('API error:', error);
     return throwError(() => error);
   }

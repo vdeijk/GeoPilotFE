@@ -4,6 +4,7 @@
   min-height: 100vh;
 }
 
-main {
+.main-content {
   flex: 1 0 auto;
+  background: var(--color-background);
 }

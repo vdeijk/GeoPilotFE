@@ -2,7 +2,7 @@
   display: grid;
   gap: var(--spacing-medium);
   padding: var(--spacing-medium);
-  background: #f4f4f4;
+  background: var(--color-background);
   border-radius: var(--border-radius-large);
 }
 
@@ -15,7 +15,7 @@ form {
 .form-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: var(--spacing-medium);
+  gap: var(--spacing-medium);
 }
 
 .form-section h3 {
