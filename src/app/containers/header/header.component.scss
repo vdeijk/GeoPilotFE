@@ -2,7 +2,7 @@ header {
   grid-row: 1/2;
   background: var(--color-primary);
   color: var(--color-white);
-  padding: 1rem;
+  padding: var(--spacing-small);
   display: grid;
   justify-content: space-between;
   align-items: center;

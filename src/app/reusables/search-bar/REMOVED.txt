@@ -1,1 +1,0 @@
-// This folder previously contained a duplicate or legacy search-bar component. It has been removed as part of project cleanup.
