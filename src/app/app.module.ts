@@ -17,6 +17,7 @@ import { routes } from './app.routes';
 import { GlobalErrorHandler } from './utility/global-error-handler';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { SpinnerComponent } from './reusables/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ToastrModule } from 'ngx-toastr';
     ButtonComponent,
     AccordionComponent,
     FooterComponent,
-    FiltersBarComponent
+    FiltersBarComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

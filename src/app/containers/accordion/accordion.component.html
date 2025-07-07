@@ -1,9 +1,26 @@
 <div class="accordion">
-  <button class="accordion-header" type="button" (click)="toggle()">
-    <h4>{{ title }}</h4>
+  <button
+    class="accordion-header"
+    type="button"
+    (click)="toggle()"
+    [attr.aria-expanded]="expanded"
+    [attr.aria-controls]="'accordion-content-' + title"
+    [id]="'accordion-header-' + title"
+  >
+    <h4 id="{{'accordion-title-' + title}}">{{ title }}</h4>
     <span class="accordion-icon">{{ expanded ? '▼' : '▶' }}</span>
   </button>
-  <div class="accordion-body" [style.maxHeight]="expanded ? '1000px' : '0'" [style.opacity]="expanded ? '1' : '0'" [style.paddingTop]="expanded ? '1.2rem' : '0'" [style.paddingBottom]="expanded ? '1.2rem' : '0'" [style.borderTop]="expanded ? '1px solid #e0e0e0' : 'none'">
+  <div
+    class="accordion-body"
+    [id]="'accordion-content-' + title"
+    role="region"
+    [attr.aria-labelledby]="'accordion-header-' + title"
+    [style.maxHeight]="expanded ? '1000px' : '0'"
+    [style.opacity]="expanded ? '1' : '0'"
+    [style.paddingTop]="expanded ? '1.2rem' : '0'"
+    [style.paddingBottom]="expanded ? '1.2rem' : '0'"
+    [style.borderTop]="expanded ? '1px solid #e0e0e0' : 'none'"
+  >
     <ng-content *ngIf="expanded"></ng-content>
   </div>
 </div>

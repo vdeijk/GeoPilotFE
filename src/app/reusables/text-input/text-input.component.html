@@ -1,35 +1,11 @@
-<div class="container" *ngIf="label; else noLabel">
-  <label [for]="label" class="label">
+<div class="container">
+  <label [for]="'textInput-' + label" class="label">
     {{ label }}
     <span *ngIf="required" class="requiredIndicator">*</span>
   </label>
-  <input
-    id="textInput"
-    [required]="required"
-    [type]="type"
-    [value]="value"
-    (input)="onInput($event)"
-    [placeholder]="placeholder"
-    class="textInput"
-    [attr.aria-invalid]="!!error"
-    [readonly]="readonly"
-    [attr.aria-describedby]="error ? 'error-message' : null"
-    [attr.maxLength]="maxLength"
-  />
-  <!-- <app-error-message *ngIf="error" id="error-message" [message]="error"></app-error-message> -->
+  <input [id]="'textInput-' + label" [required]="required" [type]="type" [value]="value" (input)="onInput($event)"
+    [placeholder]="placeholder" class="textInput" [attr.aria-invalid]="!!error" [readonly]="readonly"
+    [attr.aria-describedby]="error ? 'error-message-' + label : null" [attr.maxLength]="maxLength"
+    [attr.aria-required]="required" />
+  <span *ngIf="error" [id]="'error-message-' + label" class="error-message" role="alert">{{ error }}</span>
 </div>
-<ng-template #noLabel>
-  <input
-    id="textInput"
-    [required]="required"
-    [type]="type"
-    [value]="value"
-    (input)="onInput($event)"
-    [placeholder]="placeholder"
-    class="textInput"
-    [attr.aria-invalid]="!!error"
-    [readonly]="readonly"
-    [attr.aria-describedby]="error ? 'error-message' : null"
-    [attr.maxLength]="maxLength"
-  />
-</ng-template>

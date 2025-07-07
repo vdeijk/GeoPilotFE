@@ -24,7 +24,6 @@ export class TextInputComponent implements ControlValueAccessor {
   @Input() type: string = 'text';
   @Output() valueChange = new EventEmitter<string>();
 
-  // ControlValueAccessor methods
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 

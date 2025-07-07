@@ -1,8 +1,8 @@
 <div class="table-scroll-wrapper">
-  <table class="table-container">
+  <table class="table-container" role="table">
     <thead>
-      <tr class="table-header">
-        <th class="table-cell" *ngFor="let col of columns" (click)="col.sortable ? onSort(col) : null" [class.sortable]="col.sortable" [style.cursor]="col.sortable ? 'pointer' : 'default'">
+      <tr class="table-header" role="row">
+        <th class="table-cell" *ngFor="let col of columns" (click)="col.sortable ? onSort(col) : null" [class.sortable]="col.sortable" [style.cursor]="col.sortable ? 'pointer' : 'default'" scope="col" role="columnheader" tabindex="0">
           <span class="header-flex">
             <span>{{ col.label }}</span>
             <span class="sort-icon" *ngIf="col.sortable">
@@ -19,8 +19,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="table-row" *ngFor="let row of data" (click)="onRowClick(row)" style="cursor:pointer">
-        <td class="table-cell" *ngFor="let col of columns">{{ row[col.id] }}</td>
+      <tr class="table-row" *ngFor="let row of data" (click)="onRowClick(row)" style="cursor:pointer" role="row" tabindex="0">
+        <td class="table-cell" *ngFor="let col of columns" role="cell">{{ row[col.id] }}</td>
       </tr>
     </tbody>
   </table>
