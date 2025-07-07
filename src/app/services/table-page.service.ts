@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { EndpointService } from './endpoint.service';
+import { GeographicalData } from '../api/generated/model/geographicalData';
+import { GeographicalDataService } from '../api/generated/api/geographicalData.service';
 
 @Injectable({ providedIn: 'root' })
 export class TablePageService {
-  private dataSubject = new BehaviorSubject<any[]>([]);
+  private dataSubject = new BehaviorSubject<GeographicalData[]>([]);
   data$ = this.dataSubject.asObservable();
 
-  constructor(private endpointService: EndpointService) {
+  constructor(private geographicalDataService: GeographicalDataService) {
     this.fetchTableData();
   }
 
   fetchTableData() {
-    this.endpointService.getData('GeographicalData').subscribe({
+    this.geographicalDataService.apiGeographicalDataGet().subscribe({
       next: (data) => {
-        this.dataSubject.next(data as any[]);
+        this.dataSubject.next(data);
       },
       error: (err) => {
         console.error('API error:', err);

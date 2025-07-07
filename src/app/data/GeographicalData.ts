@@ -3,7 +3,7 @@ import { GeographicalData } from '../api/generated/model/geographicalData';
 import { TableHeaderModel } from "../interfaces/TableHeaderModel";
 import { InputFieldModel } from "../interfaces/InputFieldModel";
 
-export interface GeographicalFieldConfig<T = any> {
+export interface GeographicalFieldConfig<T = GeographicalData> {
   key: keyof T;
   label: string;
   type: "text" | "number" | "dropdown" | "date";
@@ -49,8 +49,8 @@ const fields: GeographicalFieldConfig<GeographicalData>[] = [
   { key: "lat", label: "Lat", type: "number", showInTable: true, showInForm: true, section: "Location" },
 ];
 
-export const tableHeaders: TableHeaderModel<any>[] = fields.filter(f => f.showInTable).map(f => ({
-  id: f.key as string,
+export const tableHeaders: TableHeaderModel<GeographicalData>[] = fields.filter(f => f.showInTable).map(f => ({
+  id: f.key,
   label: f.label,
   sortable: !!f.sortable,
   type: f.type === 'text' ? 'string' : (f.type as 'string' | 'number' | 'boolean' | 'date' | 'action'),

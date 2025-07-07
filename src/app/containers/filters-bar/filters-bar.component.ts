@@ -20,8 +20,8 @@ export class FiltersBarComponent {
     return value;
   }
 
-  onValueChange(idx: number, newValue: string) {
+  onValueChange(idx: number, newValue: string | number) {
     const key = this.filterFields[idx].key;
-    this.filtersService.setFilter(key, newValue);
+    this.filtersService.setFilter(key, String(newValue));
   }
 }

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+@import "ngx-toastr/toastr";
 @import "./variables.scss";
 
 *,
@@ -91,4 +92,13 @@ button {
   font-size: 1.5rem;
   line-height: 1;
   margin: 0;
+}
+
+:root {
+  --toastr-font-size: 1.5rem;
+}
+
+#toast-container > div,
+.toast {
+  font-size: var(--toastr-font-size) !important;
 }

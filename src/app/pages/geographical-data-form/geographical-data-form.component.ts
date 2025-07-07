@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EndpointService } from '../../services/endpoint.service';
 import { FormPageService } from '../../services/form-page.service';
+import { GeographicalData } from '../../api/generated/model/geographicalData';
+import { firstValueFrom } from 'rxjs';
+import { GeographicalDataService } from '../../api/generated/api/geographicalData.service';
 
 @Component({
   selector: 'app-geographical-data-form',
@@ -14,30 +16,27 @@ export class GeographicalDataFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public endpointService: EndpointService,
     public formPageService: FormPageService, 
-    private router: Router
+    private router: Router,
+    private geographicalDataService: GeographicalDataService
   ) {}
 
-  ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
+  async ngOnInit() {
+    this.route.paramMap.subscribe(async (params) => {
       this.id = params.get('id');
       this.isEditMode = !!this.id;
       if (this.isEditMode && this.id) {
-        this.endpointService
-          .getData<any>('GeographicalData', this.id)
-          .subscribe((data: any) => {
-            if (data) {
-              this.formPageService.patchValue(data);
-            }
-          });
+        const data = await firstValueFrom(this.geographicalDataService.apiGeographicalDataIdGet(Number(this.id)));
+        if (data) {
+          this.formPageService.patchValue(data);
+        }
       }
     });
   }
 
   onDelete() {
     if (this.id) {
-      this.formPageService.delete(this.endpointService, Number(this.id), () => {
+      this.formPageService.delete(Number(this.id), () => {
         this.router.navigate(['/']);
       });
     }

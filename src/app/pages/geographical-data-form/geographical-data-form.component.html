@@ -101,7 +101,7 @@
       </div>
     </app-accordion>
     <div class="form-actions-row">
-      <app-button label="Submit" type="submit"></app-button>
+      <app-button label="Submit" type="submit" [disabled]="formPageService.form.invalid"></app-button>
       <app-button *ngIf="isEditMode" label="Delete" type="button" (click)="onDelete()"
         [customStyles]="{ background: 'var(--color-red)', color: 'var(--color-white)' }"
       ></app-button>

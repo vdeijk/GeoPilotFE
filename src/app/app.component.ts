@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { EndpointService } from './services/endpoint.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +7,4 @@ import { EndpointService } from './services/endpoint.service';
 })
 export class AppComponent {
   title = 'geographical-data';
-  constructor(public endpointService: EndpointService) {}
 }

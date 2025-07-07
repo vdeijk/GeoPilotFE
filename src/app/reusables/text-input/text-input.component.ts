@@ -14,7 +14,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class TextInputComponent implements ControlValueAccessor {
-  @Input() value = '';
+  @Input() value: string | number = '';
   @Input() placeholder = '';
   @Input() required = false;
   @Input() label = '';
@@ -22,16 +22,16 @@ export class TextInputComponent implements ControlValueAccessor {
   @Input() readonly = false;
   @Input() maxLength?: number;
   @Input() type: string = 'text';
-  @Output() valueChange = new EventEmitter<string>();
+  @Output() valueChange = new EventEmitter<string | number>();
 
-  private onChange: (value: string) => void = () => {};
+  private onChange: (value: string | number) => void = () => {};
   private onTouched: () => void = () => {};
 
-  writeValue(value: string): void {
-    this.value = value || '';
+  writeValue(value: string | number): void {
+    this.value = value ?? '';
   }
 
-  registerOnChange(fn: (value: string) => void): void {
+  registerOnChange(fn: (value: string | number) => void): void {
     this.onChange = fn;
   }
 
@@ -44,7 +44,7 @@ export class TextInputComponent implements ControlValueAccessor {
   }
 
   onInput(event: Event) {
-    let newValue: any = (event.target as HTMLInputElement).value;
+    let newValue: string | number = (event.target as HTMLInputElement).value;
     if (this.type === 'number' && newValue !== '') {
       newValue = Number(newValue);
     }

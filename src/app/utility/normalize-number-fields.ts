@@ -1,14 +1,29 @@
 import fields from '../data/GeographicalData';
+import { GeographicalData } from '../api/generated/model/geographicalData';
 
-export function normalizeNumberFields(obj: Record<string, any>) {
-  (fields as any[]).forEach(field => {
-    if (field.type === 'number') {
-      if (obj[field.key] === '' || obj[field.key] === undefined) {
-        obj[field.key] = null;
-      } else if (typeof obj[field.key] !== 'number') {
-        const n = Number(obj[field.key]);
-        obj[field.key] = isNaN(n) ? null : n;
-      }
+type NumberKeys = Extract<{
+  [K in keyof GeographicalData]: GeographicalData[K] extends number | null | undefined ? K : never
+}[keyof GeographicalData], string>;
+
+const numberKeys: NumberKeys[] = [
+  'id',
+  'huisnummer',
+  'huisnummertoevoeging',
+  'oppervlakteverblijfsobject',
+  'pandbouwjaar',
+  'x',
+  'y',
+  'lon',
+  'lat',
+];
+
+export function normalizeNumberFields(obj: GeographicalData) {
+  numberKeys.forEach(key => {
+    if (obj[key] === undefined || obj[key] === null) {
+      obj[key] = undefined;
+    } else if (typeof obj[key] !== 'number') {
+      const n = Number(obj[key]);
+      obj[key] = isNaN(n) ? undefined : n;
     }
   });
 }

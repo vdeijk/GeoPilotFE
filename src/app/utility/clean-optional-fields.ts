@@ -1,8 +1,14 @@
-export function cleanOptionalFields(obj: Record<string, any>) {
-  if (obj['oppervlakteverblijfsobject'] == null || isNaN(obj['oppervlakteverblijfsobject'])) {
-    delete obj['oppervlakteverblijfsobject'];
-  }
-  if (obj['pandbouwjaar'] == null || isNaN(obj['pandbouwjaar'])) {
-    delete obj['pandbouwjaar'];
-  }
+import { GeographicalData } from '../api/generated/model/geographicalData';
+
+const optionalNumberFields: (keyof GeographicalData)[] = [
+  'oppervlakteverblijfsobject',
+  'pandbouwjaar',
+];
+
+export function cleanOptionalFields(obj: GeographicalData) {
+  optionalNumberFields.forEach(key => {
+    if (obj[key] == null || Number.isNaN(obj[key])) {
+      delete obj[key];
+    }
+  });
 }

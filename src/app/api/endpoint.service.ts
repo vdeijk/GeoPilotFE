@@ -22,18 +22,23 @@ export class EndpointService {
   getData<T>(
     endpoint: string,
     id?: string,
-    params?: Record<string, any>
+    params?: Record<string, string | number | boolean | undefined>
   ): Observable<T> {
     this.isLoading = true;
     let url = `${this.BASE_URL}/${endpoint}/`;
     if (id) url += id;
-    return this.http.get<T>(url, { params }).pipe(
+    const filteredParams = params
+      ? Object.fromEntries(
+          Object.entries(params).filter(([_, v]) => v !== undefined)
+        ) as { [param: string]: string | number | boolean | readonly (string | number | boolean)[] }
+      : undefined;
+    return this.http.get<T>(url, { params: filteredParams }).pipe(
       finalize(() => (this.isLoading = false)),
       catchError(this.handleError)
     );
   }
 
-  postData<TResponse, TRequest = any>(
+  postData<TResponse, TRequest>(
     endpoint: string,
     data: TRequest
   ): Observable<TResponse> {
@@ -63,7 +68,7 @@ export class EndpointService {
     );
   }
 
-  uploadFiles<TResponse = any>(
+  uploadFiles<TResponse>(
     endpoint: string,
     formData: FormData
   ): Observable<TResponse> {
