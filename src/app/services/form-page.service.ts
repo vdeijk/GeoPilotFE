@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import fields, { GeographicalFieldConfig } from '../data/GeographicalData';
+import fields, { GeographicalFieldConfig } from '../data/geographical-data';
 import { normalizeNumberFields } from '../utility/normalize-number-fields';
 import { cleanOptionalFields } from '../utility/clean-optional-fields';
 import { ToastrService } from 'ngx-toastr';

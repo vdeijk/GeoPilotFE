@@ -1,6 +1,6 @@
 <div class="geo-form-container">
   <h2>{{ isEditMode ? 'Edit Data' : 'Add Data' }}</h2>
-  <form [formGroup]="formPageService.form" (ngSubmit)="formPageService.submit(endpointService)">
+  <form [formGroup]="formPageService.form" (ngSubmit)="formPageService.submit()">
     <div class="form-section form-section--static">
       <h3>Address</h3>
       <app-text-input

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { filterFields } from '../data/GeographicalData';
+import { filterFields } from '../data/geographical-data';
 
 export interface FiltersState {
   [key: string]: string;

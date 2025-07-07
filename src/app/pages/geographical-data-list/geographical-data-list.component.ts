@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { tableHeaders } from '../../data/GeographicalData';
-import { TableHeaderModel } from '../../interfaces/TableHeaderModel';
+import { tableHeaders } from '../../data/geographical-data';
+import { TableHeaderModel } from '../../interfaces/table-header-model';
 import { TablePageService } from '../../services/table-page.service';
 import { SortService } from '../../services/sort.service';
 import { FiltersService } from '../../services/filters.service';

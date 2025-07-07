@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { filterFields } from '../../data/GeographicalData';
+import { filterFields } from '../../data/geographical-data';
 import { FiltersService } from '../../services/filters.service';
 
 @Component({

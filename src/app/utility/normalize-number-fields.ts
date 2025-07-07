@@ -1,4 +1,4 @@
-import fields from '../data/GeographicalData';
+import fields from '../data/geographical-data';
 import { GeographicalData } from '../api/generated/model/geographicalData';
 
 type NumberKeys = Extract<{
