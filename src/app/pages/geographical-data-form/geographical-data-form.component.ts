@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EndpointService } from '../../services/endpoint.service';
-import { FormPageService } from '../../stores/FormPage.service';
+import { FormPageService } from '../../services/form-page.service';
 
 @Component({
   selector: 'app-geographical-data-form',

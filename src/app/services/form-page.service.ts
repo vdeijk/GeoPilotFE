@@ -58,21 +58,6 @@ export class FormPageService {
   }
 
   async delete(endpointService: any, id: number, onSuccess?: () => void) {
-    if (!id) {
-      this.toastr.error('No ID provided for deletion.');
-      return;
-    }
-    if (!confirm('Are you sure you want to delete this record?')) {
-      return;
-    }
-    try {
-      await endpointService.deleteData('GeographicalData', id).toPromise();
-      this.toastr.success('Record deleted successfully!');
-      this.reset();
-      if (onSuccess) onSuccess();
-    } catch (err) {
-      this.toastr.error('Failed to delete record.');
-      console.error('Error deleting record:', err);
-    }
+    // ...existing code...
   }
 }

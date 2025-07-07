@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { filterFields } from '../../data/GeographicalData';
-import { FiltersService } from '../../services/FiltersStore.service';
+import { FiltersService } from '../../services/filters.service';
 
 @Component({
   selector: 'app-filters-bar',
