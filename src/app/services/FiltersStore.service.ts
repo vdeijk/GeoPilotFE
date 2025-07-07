@@ -15,7 +15,7 @@ function getInitialFiltersState(): FiltersState {
 }
 
 @Injectable({ providedIn: 'root' })
-export class FiltersStore {
+export class FiltersService {
   private filtersSubject = new BehaviorSubject<FiltersState>(getInitialFiltersState());
   filters$ = this.filtersSubject.asObservable();
 

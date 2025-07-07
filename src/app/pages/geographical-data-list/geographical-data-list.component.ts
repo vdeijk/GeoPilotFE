@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 import { tableHeaders } from '../../data/GeographicalData';
 import { TableHeaderModel } from '../../interfaces/TableHeaderModel';
 import { TablePageService } from '../../stores/TablePage.service';
-import { FilterService } from '../../services/filter.service';
 import { SortService } from '../../services/sort.service';
-import { FiltersStore } from '../../stores/FiltersStore.service';
+import { FiltersService } from '../../services/FiltersStore.service';
 
 @Component({
   selector: 'app-geographical-data-list',
@@ -21,14 +20,14 @@ export class GeographicalDataListComponent {
 
   constructor(
     private tablePageService: TablePageService,
-    private filtersStore: FiltersStore,
+    private filtersService: FiltersService,
     private router: Router
   ) {
     this.tablePageService.data$.subscribe(apiData => {
       this.data = apiData;
       this.applyFiltersAndSorting();
     });
-    this.filtersStore.filters$.subscribe(filters => {
+    this.filtersService.filters$.subscribe(filters => {
       this.filters = filters;
       this.applyFiltersAndSorting();
     });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { EndpointService } from '../services/endpoint.service';
+import { EndpointService } from './endpoint.service';
 
 @Injectable({ providedIn: 'root' })
 export class TablePageService {

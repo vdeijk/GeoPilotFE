@@ -1,0 +1,1 @@
+// This folder previously contained a duplicate or legacy filters-bar component. It has been removed as part of project cleanup.

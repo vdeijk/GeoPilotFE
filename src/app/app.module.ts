@@ -4,18 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './reusables/header/header.component';
+import { HeaderComponent } from './containers/header/header.component';
 import { GeographicalDataListComponent } from './pages/geographical-data-list/geographical-data-list.component';
 import { GeographicalDataFormComponent } from './pages/geographical-data-form/geographical-data-form.component';
 import { TableComponent } from './reusables/table/table.component';
 import { TextInputComponent } from './reusables/text-input/text-input.component';
-import { SearchBarComponent } from './reusables/search-bar/search-bar.component';
 import { ButtonComponent } from './reusables/button/button.component';
-import { AccordionComponent } from './reusables/accordion/accordion.component';
-import { FooterComponent } from './reusables/footer/footer.component';
-import { FiltersBarComponent } from './reusables/filters-bar/filters-bar.component';
+import { AccordionComponent } from './containers/accordion/accordion.component';
+import { FooterComponent } from './containers/footer/footer.component';
+import { FiltersBarComponent } from './containers/filters-bar/filters-bar.component';
 import { routes } from './app.routes';
 import { GlobalErrorHandler } from './utility/global-error-handler';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,6 @@ import { GlobalErrorHandler } from './utility/global-error-handler';
     GeographicalDataFormComponent,
     TableComponent,
     TextInputComponent,
-    SearchBarComponent,
     ButtonComponent,
     AccordionComponent,
     FooterComponent,
@@ -33,10 +33,12 @@ import { GlobalErrorHandler } from './utility/global-error-handler';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler }

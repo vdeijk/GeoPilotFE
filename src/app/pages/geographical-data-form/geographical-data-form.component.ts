@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EndpointService } from '../../api/endpoint.service';
+import { EndpointService } from '../../services/endpoint.service';
 import { FormPageService } from '../../stores/FormPage.service';
 
 @Component({
