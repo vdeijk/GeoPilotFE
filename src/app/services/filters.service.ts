@@ -16,7 +16,9 @@ function getInitialFiltersState(): FiltersState {
 
 @Injectable({ providedIn: 'root' })
 export class FiltersService {
-  private filtersSubject = new BehaviorSubject<FiltersState>(getInitialFiltersState());
+  private filtersSubject = new BehaviorSubject<FiltersState>(
+    getInitialFiltersState()
+  );
   filters$ = this.filtersSubject.asObservable();
 
   setFilter(key: string, value: string) {
@@ -29,22 +31,30 @@ export class FiltersService {
     this.filtersSubject.next(getInitialFiltersState());
   }
 
-  applyFilters<T extends Record<string, any>>(data: T[], filters: FiltersState): T[] {
+  applyFilters<T>(data: T[], filters: FiltersState): T[] {
     let filtered = data;
     const searchTerm = filters['search'] || '';
     if (searchTerm && searchTerm.trim() !== '') {
-      filtered = filtered.filter(item =>
-        Object.values(item as Record<string, any>).some(val =>
-          val && val.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter((item) =>
+        Object.values(item as object).some(
+          (val) =>
+            val !== null &&
+            val !== undefined &&
+            val.toString().toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
     }
     Object.entries(filters).forEach(([key, value]) => {
       if (key === 'search') return;
       if (value && value.trim() !== '') {
-        filtered = filtered.filter(item =>
-          ((item as Record<string, any>)[key] || '').toString().toLowerCase().includes(value.toLowerCase())
-        );
+        filtered = filtered.filter((item) => {
+          const fieldValue = (item as any)[key as keyof T];
+          return (
+            fieldValue !== null &&
+            fieldValue !== undefined &&
+            fieldValue.toString().toLowerCase().includes(value.toLowerCase())
+          );
+        });
       }
     });
     return filtered;

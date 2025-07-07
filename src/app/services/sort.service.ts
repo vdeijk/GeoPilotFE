@@ -20,22 +20,30 @@ export class SortService<T> {
     if (!this.sortField) return items;
 
     return items.slice().sort((a, b) => {
-      const fieldA = a[this.sortField!] as any;
-      const fieldB = b[this.sortField!] as any;
+      const fieldA = a[this.sortField!];
+      const fieldB = b[this.sortField!];
 
       if (fieldA === undefined || fieldB === undefined) {
         return 0;
       }
 
-      if (fieldA < fieldB) {
-        return this.sortOrder === 'asc' ? -1 : 1;
+      if (typeof fieldA === 'string' && typeof fieldB === 'string') {
+        return this.sortOrder === 'asc'
+          ? fieldA.localeCompare(fieldB)
+          : fieldB.localeCompare(fieldA);
       }
-
-      if (fieldA > fieldB) {
-        return this.sortOrder === 'asc' ? 1 : -1;
+      if (typeof fieldA === 'number' && typeof fieldB === 'number') {
+        return this.sortOrder === 'asc' ? fieldA - fieldB : fieldB - fieldA;
       }
-
-      return 0;
+      if (typeof fieldA === 'boolean' && typeof fieldB === 'boolean') {
+        return this.sortOrder === 'asc'
+          ? Number(fieldA) - Number(fieldB)
+          : Number(fieldB) - Number(fieldA);
+      }
+      // fallback to string comparison
+      return this.sortOrder === 'asc'
+        ? String(fieldA).localeCompare(String(fieldB))
+        : String(fieldB).localeCompare(String(fieldA));
     });
   }
 }
