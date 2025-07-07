@@ -12,6 +12,7 @@ import { TablePageService } from './table-page.service';
 @Injectable({ providedIn: 'root' })
 export class FormPageService {
   private formSubject: BehaviorSubject<FormGroup>;
+  private currentId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,8 @@ export class FormPageService {
       .forEach((field) => {
         group[field.key] = ['', field.required ? Validators.required : []];
       });
+    // Always include the id field in the form group, but do not show in form UI
+    group['id'] = [null];
     const form = this.fb.group(group);
     this.formSubject = new BehaviorSubject<FormGroup>(form);
   }
@@ -35,10 +38,14 @@ export class FormPageService {
 
   patchValue(value: Partial<GeographicalData>) {
     this.form.patchValue(value);
+    if (value && value.id) {
+      this.currentId = value.id;
+    }
   }
 
   reset(value?: Partial<GeographicalData>) {
     this.form.reset(value);
+    this.currentId = null;
   }
 
   async submit() {
@@ -52,9 +59,14 @@ export class FormPageService {
       }
       cleanOptionalFields(transformed);
       try {
-        await this.geographicalDataService.apiGeographicalDataPost(transformed).toPromise();
-        this.toastr.success('Data submitted successfully!');
-        this.tablePageService.fetchTableData(); // Refresh table data
+        if (this.currentId) {
+          await this.geographicalDataService.apiGeographicalDataIdPut(this.currentId, transformed).toPromise();
+          this.toastr.success('Data updated successfully!');
+        } else {
+          await this.geographicalDataService.apiGeographicalDataPost(transformed).toPromise();
+          this.toastr.success('Data submitted successfully!');
+        }
+        this.tablePageService.fetchTableData();
       } catch (err) {
         this.toastr.error('Error submitting data.');
         console.error('Error submitting data:', err);

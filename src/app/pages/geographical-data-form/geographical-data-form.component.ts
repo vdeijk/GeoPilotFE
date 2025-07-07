@@ -30,6 +30,8 @@ export class GeographicalDataFormComponent implements OnInit {
         if (data) {
           this.formPageService.patchValue(data);
         }
+      } else {
+        this.formPageService.reset(); // Always reset form when in add mode
       }
     });
   }
