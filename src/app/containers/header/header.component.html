@@ -1,8 +1,11 @@
 <header>
     <h5>GeoPilot</h5>
     <nav aria-label="Main navigation">
-        <a routerLink="/" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+        <a routerLink="/" routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
         <a routerLink="/add" routerLinkActive="router-link-active">Add Item</a>
     </nav>
-    <div></div>
+    <div class="header-context-indicator">
+        <ng-container *ngIf="isEditPage">Editing Data</ng-container>
+    </div>
 </header>

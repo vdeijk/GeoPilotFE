@@ -7,6 +7,7 @@ import { cleanOptionalFields } from '../utility/clean-optional-fields';
 import { ToastrService } from 'ngx-toastr';
 import { GeographicalData } from '../api/generated/model/geographicalData';
 import { GeographicalDataService } from '../api/generated/api/geographicalData.service';
+import { TablePageService } from './table-page.service';
 
 @Injectable({ providedIn: 'root' })
 export class FormPageService {
@@ -15,7 +16,8 @@ export class FormPageService {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private geographicalDataService: GeographicalDataService
+    private geographicalDataService: GeographicalDataService,
+    private tablePageService: TablePageService
   ) {
     const group: { [key in keyof GeographicalData]?: any } = {};
     (fields as GeographicalFieldConfig<GeographicalData>[])
@@ -52,6 +54,7 @@ export class FormPageService {
       try {
         await this.geographicalDataService.apiGeographicalDataPost(transformed).toPromise();
         this.toastr.success('Data submitted successfully!');
+        this.tablePageService.fetchTableData(); // Refresh table data
       } catch (err) {
         this.toastr.error('Error submitting data.');
         console.error('Error submitting data:', err);
@@ -65,6 +68,7 @@ export class FormPageService {
     try {
       await this.geographicalDataService.apiGeographicalDataIdDelete(id).toPromise();
       this.toastr.success('Data deleted successfully!');
+      this.tablePageService.fetchTableData();
       if (onSuccess) onSuccess();
     } catch (err) {
       this.toastr.error('Error deleting data.');
