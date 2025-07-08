@@ -6,7 +6,7 @@ import { of, throwError } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 class MockGeoService {
-  apiGeographicalDataGet = jasmine.createSpy('get').and.returnValue(of([{ id: 1 }]));
+  apiV1GeographicalDataGet = jasmine.createSpy('get').and.returnValue(of([{ id: 1 }]));
 }
 class MockLoadingService {
   setLoading = jasmine.createSpy('setLoading');
@@ -32,7 +32,7 @@ describe('TablePageService', () => {
 
   it('should create the service and fetch data on init', () => {
     expect(service).toBeTruthy();
-    expect(geoService.apiGeographicalDataGet).toHaveBeenCalled();
+    expect(geoService.apiV1GeographicalDataGet).toHaveBeenCalled();
   });
 
   it('should update data$ and loading state on fetchTableData', (done) => {
@@ -45,7 +45,7 @@ describe('TablePageService', () => {
   });
 
   it('should handle API errors gracefully', () => {
-    geoService.apiGeographicalDataGet.and.returnValue(throwError(() => new Error('fail')));
+    geoService.apiV1GeographicalDataGet.and.returnValue(throwError(() => new Error('fail')));
     spyOn(console, 'error');
     service.fetchTableData();
     expect(loadingService.setLoading).toHaveBeenCalledWith(false);

@@ -11,9 +11,9 @@ class MockToastr {
   error = jasmine.createSpy('error');
 }
 class MockGeoService {
-  apiGeographicalDataIdPut = jasmine.createSpy('put').and.returnValue({ toPromise: () => Promise.resolve() });
-  apiGeographicalDataPost = jasmine.createSpy('post').and.returnValue({ toPromise: () => Promise.resolve() });
-  apiGeographicalDataIdDelete = jasmine.createSpy('delete').and.returnValue({ toPromise: () => Promise.resolve() });
+  apiV1GeographicalDataIdPut = jasmine.createSpy('put').and.returnValue({ toPromise: () => Promise.resolve() });
+  apiV1GeographicalDataPost = jasmine.createSpy('post').and.returnValue({ toPromise: () => Promise.resolve() });
+  apiV1GeographicalDataIdDelete = jasmine.createSpy('delete').and.returnValue({ toPromise: () => Promise.resolve() });
 }
 class MockTableService {
   fetchTableData = jasmine.createSpy('fetchTableData');
@@ -74,7 +74,7 @@ describe('FormPageService', () => {
     patchRequiredFields(service);
     (service as any).currentId = null;
     await service.submit();
-    expect(geoService.apiGeographicalDataPost).toHaveBeenCalled();
+    expect(geoService.apiV1GeographicalDataPost).toHaveBeenCalled();
     expect(toastr.success).toHaveBeenCalledWith('Data submitted successfully!');
     expect(tableService.fetchTableData).toHaveBeenCalled();
   });
@@ -83,7 +83,7 @@ describe('FormPageService', () => {
     patchRequiredFields(service);
     (service as any).currentId = 5;
     await service.submit();
-    expect(geoService.apiGeographicalDataIdPut).toHaveBeenCalledWith(5, jasmine.any(Object));
+    expect(geoService.apiV1GeographicalDataIdPut).toHaveBeenCalledWith(5, jasmine.any(Object));
     expect(toastr.success).toHaveBeenCalledWith('Data updated successfully!');
     expect(tableService.fetchTableData).toHaveBeenCalled();
   });
@@ -92,12 +92,12 @@ describe('FormPageService', () => {
     patchRequiredFields(service, { huisnummer: 'abc' as any });
     await service.submit();
     expect(toastr.error).toHaveBeenCalledWith('Huisnummer is required and must be a number.');
-    expect(geoService.apiGeographicalDataPost).not.toHaveBeenCalled();
-    expect(geoService.apiGeographicalDataIdPut).not.toHaveBeenCalled();
+    expect(geoService.apiV1GeographicalDataPost).not.toHaveBeenCalled();
+    expect(geoService.apiV1GeographicalDataIdPut).not.toHaveBeenCalled();
   });
 
   it('should handle API errors on submit', async () => {
-    geoService.apiGeographicalDataPost.and.returnValue({ toPromise: () => Promise.reject('fail') });
+    geoService.apiV1GeographicalDataPost.and.returnValue({ toPromise: () => Promise.reject('fail') });
     patchRequiredFields(service);
     (service as any).currentId = null;
     await service.submit();
@@ -106,13 +106,13 @@ describe('FormPageService', () => {
 
   it('should call delete and handle success', async () => {
     await service.delete(1);
-    expect(geoService.apiGeographicalDataIdDelete).toHaveBeenCalledWith(1);
+    expect(geoService.apiV1GeographicalDataIdDelete).toHaveBeenCalledWith(1);
     expect(toastr.success).toHaveBeenCalledWith('Data deleted successfully!');
     expect(tableService.fetchTableData).toHaveBeenCalled();
   });
 
   it('should handle API errors on delete', async () => {
-    geoService.apiGeographicalDataIdDelete.and.returnValue({ toPromise: () => Promise.reject('fail') });
+    geoService.apiV1GeographicalDataIdDelete.and.returnValue({ toPromise: () => Promise.reject('fail') });
     await service.delete(1);
     expect(toastr.error).toHaveBeenCalledWith('Error deleting data.');
   });

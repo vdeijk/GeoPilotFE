@@ -18,12 +18,12 @@ export class TablePageService {
 
   fetchTableData() {
     this.loadingService.setLoading(true);
-    this.geographicalDataService.apiGeographicalDataGet().subscribe({
-      next: (data) => {
+    this.geographicalDataService.apiV1GeographicalDataGet().subscribe({
+      next: (data: any) => {
         this.dataSubject.next(data);
         this.loadingService.setLoading(false);
       },
-      error: (err) => {
+      error: (err: any) => {
         this.loadingService.setLoading(false);
         console.error('API error:', err);
       }

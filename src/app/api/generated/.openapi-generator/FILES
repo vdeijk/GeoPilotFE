@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.base.service.ts
 api.module.ts
@@ -9,8 +8,11 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/geographicalData.ts
+model/createGeographicalDataDto.ts
+model/geographicalDataDto.ts
 model/models.ts
+model/problemDetails.ts
+model/updateGeographicalDataDto.ts
 param.ts
 provide-api.ts
 variables.ts

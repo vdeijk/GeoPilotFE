@@ -60,10 +60,10 @@ export class FormPageService {
       cleanOptionalFields(transformed);
       try {
         if (this.currentId) {
-          await this.geographicalDataService.apiGeographicalDataIdPut(this.currentId, transformed).toPromise();
+          await this.geographicalDataService.apiV1GeographicalDataIdPut(this.currentId, transformed).toPromise();
           this.toastr.success('Data updated successfully!');
         } else {
-          await this.geographicalDataService.apiGeographicalDataPost(transformed).toPromise();
+          await this.geographicalDataService.apiV1GeographicalDataPost(transformed).toPromise();
           this.toastr.success('Data submitted successfully!');
         }
         this.tablePageService.fetchTableData();
@@ -78,7 +78,7 @@ export class FormPageService {
 
   async delete(id: number, onSuccess?: () => void) {
     try {
-      await this.geographicalDataService.apiGeographicalDataIdDelete(id).toPromise();
+      await this.geographicalDataService.apiV1GeographicalDataIdDelete(id).toPromise();
       this.toastr.success('Data deleted successfully!');
       this.tablePageService.fetchTableData();
       if (onSuccess) onSuccess();
