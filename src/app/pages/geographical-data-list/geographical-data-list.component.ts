@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { tableHeaders } from '../../data/geographical-data';
 import { TableHeaderModel } from '../../interfaces/table-header-model';
 import { TablePageService } from '../../services/table-page.service';
-import { SortService } from '../../services/sort.service';
-import { FiltersService } from '../../services/filters.service';
 import { GeographicalData } from '../../api/generated/model/geographicalData';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,27 +15,17 @@ import { takeUntil } from 'rxjs/operators';
 export class GeographicalDataListComponent implements OnDestroy {
   columns: TableHeaderModel<GeographicalData>[] = tableHeaders;
   data: GeographicalData[] = [];
-  filteredSortedData: GeographicalData[] = [];
-  filters: { [key: string]: string } = {};
+  // Filtering now handled by backend
   private destroy$ = new Subject<void>();
 
   constructor(
     public tablePageService: TablePageService,
-    public filtersService: FiltersService,
-    public sortService: SortService<GeographicalData>,
     private router: Router
   ) {
     this.tablePageService.data$
       .pipe(takeUntil(this.destroy$))
       .subscribe(apiData => {
         this.data = apiData;
-        this.applyFiltersAndSorting();
-      });
-    this.filtersService.filters$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(filters => {
-        this.filters = filters;
-        this.applyFiltersAndSorting();
       });
   }
 
@@ -46,26 +34,13 @@ export class GeographicalDataListComponent implements OnDestroy {
     this.destroy$.complete();
   }
 
-  onSort(field: string) {
-    this.sortService.setSortField(field as keyof GeographicalData);
-    this.applyFiltersAndSorting();
+  onSort(event: { field: string, direction: 0 | 1 }) {
+    this.tablePageService.fetchTableData(event.field, event.direction);
   }
 
   onRowClick(row: GeographicalData) {
     if (row && row.id) {
       this.router.navigate(['/edit', row.id]);
     }
-  }
-
-  applyFiltersAndSorting() {
-    const filtered = this.filtersService.applyFilters(this.data, this.filters);
-    this.filteredSortedData = this.sortService.sortItems(filtered);
-  }
-
-  get sortFieldString(): string | null {
-    if (typeof this.sortService.sortField === 'string' || this.sortService.sortField === null) {
-      return this.sortService.sortField as string | null;
-    }
-    return this.sortService.sortField ? String(this.sortService.sortField) : null;
   }
 }

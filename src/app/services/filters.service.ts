@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filterFields } from '../data/geographical-data';
 
@@ -60,3 +60,4 @@ export class FiltersService {
     return filtered;
   }
 }
+*/

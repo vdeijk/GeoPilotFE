@@ -1,11 +1,10 @@
 <div class="geo-list-container">
   <h2 class="geo-list-h2">Geographical Data</h2>
   <app-filters-bar></app-filters-bar>
-  <app-table 
-    [columns]="columns" 
-    [data]="filteredSortedData"
-    [sortField]="sortFieldString"
-    [sortOrder]="sortService.sortOrder"
-    (sort)="onSort($event)"
-    (rowClick)="onRowClick($event)"></app-table>
+ <app-table 
+  [columns]="columns" 
+  [data]="data"
+  (sort)="onSort($event)"
+  (rowClick)="onRowClick($event)">
+</app-table>
 </div>

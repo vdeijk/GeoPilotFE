@@ -9,14 +9,9 @@
  */
 
 
-export interface ProblemDetails { 
-  [key: string]: any | any;
-
-
-    type?: string | null;
-    title?: string | null;
-    status?: number | null;
-    detail?: string | null;
-    instance?: string | null;
-}
+export const SortDirection = {
+    NUMBER_0: 0,
+    NUMBER_1: 1
+} as const;
+export type SortDirection = typeof SortDirection[keyof typeof SortDirection];
 

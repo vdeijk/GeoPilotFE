@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { GeographicalData } from '../api/generated/model/geographicalData';
 import { GeographicalDataService } from '../api/generated/api/geographicalData.service';
 import { TablePageService } from './table-page.service';
+import { CreateGeographicalDataDto } from '../api/generated/model/createGeographicalDataDto';
+import { UpdateGeographicalDataDto } from '../api/generated/model/updateGeographicalDataDto';
 
 @Injectable({ providedIn: 'root' })
 export class FormPageService {
@@ -60,10 +62,17 @@ export class FormPageService {
       cleanOptionalFields(transformed);
       try {
         if (this.currentId) {
-          await this.geographicalDataService.apiV1GeographicalDataIdPut(this.currentId, transformed).toPromise();
+          await this.geographicalDataService.apiVersionGeographicalDataIdPut(
+            this.currentId,
+            '1',
+            toUpdateGeographicalDataDto(transformed)
+          ).toPromise();
           this.toastr.success('Data updated successfully!');
         } else {
-          await this.geographicalDataService.apiV1GeographicalDataPost(transformed).toPromise();
+          await this.geographicalDataService.apiVersionGeographicalDataPost(
+            '1',
+            toCreateGeographicalDataDto(transformed)
+          ).toPromise();
           this.toastr.success('Data submitted successfully!');
         }
         this.tablePageService.fetchTableData();
@@ -78,7 +87,7 @@ export class FormPageService {
 
   async delete(id: number, onSuccess?: () => void) {
     try {
-      await this.geographicalDataService.apiV1GeographicalDataIdDelete(id).toPromise();
+      await this.geographicalDataService.apiVersionGeographicalDataIdDelete(id, '1').toPromise();
       this.toastr.success('Data deleted successfully!');
       this.tablePageService.fetchTableData();
       if (onSuccess) onSuccess();
@@ -87,4 +96,38 @@ export class FormPageService {
       console.error('Error deleting data:', err);
     }
   }
+}
+
+function toCreateGeographicalDataDto(data: GeographicalData): CreateGeographicalDataDto {
+  return {
+    openbareruimte: data.openbareruimte ?? '',
+    huisnummer: Number(data.huisnummer),
+    huisletter: data.huisletter ?? null,
+    huisnummertoevoeging: data.huisnummertoevoeging ?? null,
+    postcode: data.postcode ?? '',
+    woonplaats: data.woonplaats ?? '',
+    gemeente: data.gemeente ?? null,
+    provincie: data.provincie ?? null,
+    nummeraanduiding: data.nummeraanduiding ?? null,
+    verblijfsobjectgebruiksdoel: data.verblijfsobjectgebruiksdoel ?? null,
+    oppervlakteverblijfsobject: data.oppervlakteverblijfsobject ?? undefined,
+    verblijfsobjectstatus: data.verblijfsobjectstatus ?? null,
+    objectId: data.objectId ?? null,
+    objectType: data.objectType ?? null,
+    nevenadres: data.nevenadres ?? null,
+    pandid: data.pandid ?? null,
+    pandstatus: data.pandstatus ?? null,
+    pandbouwjaar: data.pandbouwjaar ?? undefined,
+    x: data.x ?? undefined,
+    y: data.y ?? undefined,
+    lon: data.lon ?? undefined,
+    lat: data.lat ?? undefined
+  };
+}
+
+function toUpdateGeographicalDataDto(data: GeographicalData): UpdateGeographicalDataDto {
+  return {
+    ...toCreateGeographicalDataDto(data),
+    id: data.id ?? undefined
+  };
 }

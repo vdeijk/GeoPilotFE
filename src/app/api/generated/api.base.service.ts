@@ -1,5 +1,5 @@
 /**
- * My API 1.0
+ * Geographical Data API
  *
  * 
  *

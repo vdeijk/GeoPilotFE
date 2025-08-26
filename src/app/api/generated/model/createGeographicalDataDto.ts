@@ -1,5 +1,5 @@
 /**
- * My API 1.0
+ * Geographical Data API
  *
  * 
  *
@@ -10,12 +10,12 @@
 
 
 export interface CreateGeographicalDataDto { 
-    openbareruimte?: string | null;
-    huisnummer?: number;
+    openbareruimte: string;
+    huisnummer: number;
     huisletter?: string | null;
     huisnummertoevoeging?: number | null;
-    postcode?: string | null;
-    woonplaats?: string | null;
+    postcode: string;
+    woonplaats: string;
     gemeente?: string | null;
     provincie?: string | null;
     nummeraanduiding?: string | null;

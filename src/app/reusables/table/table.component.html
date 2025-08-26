@@ -7,8 +7,8 @@
             <span>{{ col.label }}</span>
             <span class="sort-icon" *ngIf="col.sortable">
               <ng-container *ngIf="sortField === col.id.toString(); else unsorted">
-                <span *ngIf="sortOrder === 'asc'">▲</span>
-                <span *ngIf="sortOrder === 'desc'">▼</span>
+                <span *ngIf="sortState.direction === 0">▲</span>
+                <span *ngIf="sortState.direction === 1">▼</span>
               </ng-container>
               <ng-template #unsorted>
                 <span class="sortable-indicator">⇅</span>

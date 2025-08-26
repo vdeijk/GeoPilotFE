@@ -11,13 +11,21 @@ export class TableComponent {
   @Input() columns: TableHeaderModel<GeographicalData>[] = [];
   @Input() data: GeographicalData[] = [];
   @Input() sortField: string | null = null;
-  @Input() sortOrder: 'asc' | 'desc' = 'asc';
   @Input() selectedRow: GeographicalData | null = null;
-  @Output() sort = new EventEmitter<string>();
+  @Output() sort = new EventEmitter<{ field: string, direction: 0 | 1 }>();
   @Output() rowClick = new EventEmitter<GeographicalData>();
 
+  sortState: { field: string, direction: 0 | 1 } = { field: '', direction: 0 };
+
   onSort(col: TableHeaderModel<GeographicalData>) {
-    this.sort.emit(col.id.toString());
+    // Toggle direction if sorting the same field, otherwise default to ascending
+    if (this.sortState.field === col.id.toString()) {
+      this.sortState.direction = this.sortState.direction === 0 ? 1 : 0;
+    } else {
+      this.sortState.field = col.id.toString();
+      this.sortState.direction = 0;
+    }
+    this.sort.emit({ field: this.sortState.field, direction: this.sortState.direction });
   }
 
   onRowClick(row: GeographicalData) {

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { filterFields } from '../../data/geographical-data';
-import { FiltersService } from '../../services/filters.service';
 
 @Component({
   selector: 'app-filters-bar',
@@ -10,18 +9,7 @@ import { FiltersService } from '../../services/filters.service';
 export class FiltersBarComponent {
   filterFields = filterFields;
 
-  constructor(public filtersService: FiltersService) {}
+  // Filtering now handled by backend; remove FiltersService
 
-  getFilterValue(key: string): string {
-    let value = '';
-    this.filtersService.filters$.subscribe(filters => {
-      value = filters[key] ?? '';
-    }).unsubscribe();
-    return value;
-  }
-
-  onValueChange(idx: number, newValue: string | number) {
-    const key = this.filterFields[idx].key;
-    this.filtersService.setFilter(key, String(newValue));
-  }
+  // Implement backend filter logic here if needed
 }

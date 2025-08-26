@@ -10,8 +10,10 @@ git_push.sh
 index.ts
 model/createGeographicalDataDto.ts
 model/geographicalDataDto.ts
+model/geographicalDataDtoPagedResult.ts
 model/models.ts
 model/problemDetails.ts
+model/sortDirection.ts
 model/updateGeographicalDataDto.ts
 param.ts
 provide-api.ts

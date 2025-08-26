@@ -1,5 +1,5 @@
 /**
- * My API 1.0
+ * Geographical Data API
  *
  * 
  *
@@ -21,7 +21,11 @@ import { CreateGeographicalDataDto } from '../model/createGeographicalDataDto';
 // @ts-ignore
 import { GeographicalDataDto } from '../model/geographicalDataDto';
 // @ts-ignore
+import { GeographicalDataDtoPagedResult } from '../model/geographicalDataDtoPagedResult';
+// @ts-ignore
 import { ProblemDetails } from '../model/problemDetails';
+// @ts-ignore
+import { SortDirection } from '../model/sortDirection';
 // @ts-ignore
 import { UpdateGeographicalDataDto } from '../model/updateGeographicalDataDto';
 
@@ -42,13 +46,17 @@ export class GeographicalDataService extends BaseService {
     }
 
     /**
+     * @param version 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiV1GeographicalDataGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<GeographicalDataDto>>;
-    public apiV1GeographicalDataGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<GeographicalDataDto>>>;
-    public apiV1GeographicalDataGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<GeographicalDataDto>>>;
-    public apiV1GeographicalDataGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public apiVersionGeographicalDataGet(version: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<GeographicalDataDto>>;
+    public apiVersionGeographicalDataGet(version: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<GeographicalDataDto>>>;
+    public apiVersionGeographicalDataGet(version: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<GeographicalDataDto>>>;
+    public apiVersionGeographicalDataGet(version: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (version === null || version === undefined) {
+            throw new Error('Required parameter version was null or undefined when calling apiVersionGeographicalDataGet.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -77,7 +85,7 @@ export class GeographicalDataService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/v1/GeographicalData`;
+        let localVarPath = `/api/${this.configuration.encodeParam({name: "version", value: version, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/GeographicalData`;
         const { basePath, withCredentials } = this.configuration;
         return this.httpClient.request<Array<GeographicalDataDto>>('get', `${basePath}${localVarPath}`,
             {
@@ -94,15 +102,19 @@ export class GeographicalDataService extends BaseService {
 
     /**
      * @param id 
+     * @param version 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiV1GeographicalDataIdDelete(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public apiV1GeographicalDataIdDelete(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public apiV1GeographicalDataIdDelete(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public apiV1GeographicalDataIdDelete(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public apiVersionGeographicalDataIdDelete(id: number, version: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public apiVersionGeographicalDataIdDelete(id: number, version: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public apiVersionGeographicalDataIdDelete(id: number, version: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public apiVersionGeographicalDataIdDelete(id: number, version: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling apiV1GeographicalDataIdDelete.');
+            throw new Error('Required parameter id was null or undefined when calling apiVersionGeographicalDataIdDelete.');
+        }
+        if (version === null || version === undefined) {
+            throw new Error('Required parameter version was null or undefined when calling apiVersionGeographicalDataIdDelete.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -132,7 +144,7 @@ export class GeographicalDataService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/v1/GeographicalData/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int32"})}`;
+        let localVarPath = `/api/${this.configuration.encodeParam({name: "version", value: version, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/GeographicalData/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int32"})}`;
         const { basePath, withCredentials } = this.configuration;
         return this.httpClient.request<any>('delete', `${basePath}${localVarPath}`,
             {
@@ -149,15 +161,19 @@ export class GeographicalDataService extends BaseService {
 
     /**
      * @param id 
+     * @param version 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiV1GeographicalDataIdGet(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<GeographicalDataDto>;
-    public apiV1GeographicalDataIdGet(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GeographicalDataDto>>;
-    public apiV1GeographicalDataIdGet(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GeographicalDataDto>>;
-    public apiV1GeographicalDataIdGet(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public apiVersionGeographicalDataIdGet(id: number, version: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<GeographicalDataDto>;
+    public apiVersionGeographicalDataIdGet(id: number, version: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GeographicalDataDto>>;
+    public apiVersionGeographicalDataIdGet(id: number, version: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GeographicalDataDto>>;
+    public apiVersionGeographicalDataIdGet(id: number, version: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling apiV1GeographicalDataIdGet.');
+            throw new Error('Required parameter id was null or undefined when calling apiVersionGeographicalDataIdGet.');
+        }
+        if (version === null || version === undefined) {
+            throw new Error('Required parameter version was null or undefined when calling apiVersionGeographicalDataIdGet.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -187,7 +203,7 @@ export class GeographicalDataService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/v1/GeographicalData/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int32"})}`;
+        let localVarPath = `/api/${this.configuration.encodeParam({name: "version", value: version, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/GeographicalData/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int32"})}`;
         const { basePath, withCredentials } = this.configuration;
         return this.httpClient.request<GeographicalDataDto>('get', `${basePath}${localVarPath}`,
             {
@@ -204,16 +220,20 @@ export class GeographicalDataService extends BaseService {
 
     /**
      * @param id 
+     * @param version 
      * @param updateGeographicalDataDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiV1GeographicalDataIdPut(id: number, updateGeographicalDataDto?: UpdateGeographicalDataDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<GeographicalDataDto>;
-    public apiV1GeographicalDataIdPut(id: number, updateGeographicalDataDto?: UpdateGeographicalDataDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GeographicalDataDto>>;
-    public apiV1GeographicalDataIdPut(id: number, updateGeographicalDataDto?: UpdateGeographicalDataDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GeographicalDataDto>>;
-    public apiV1GeographicalDataIdPut(id: number, updateGeographicalDataDto?: UpdateGeographicalDataDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public apiVersionGeographicalDataIdPut(id: number, version: string, updateGeographicalDataDto?: UpdateGeographicalDataDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<GeographicalDataDto>;
+    public apiVersionGeographicalDataIdPut(id: number, version: string, updateGeographicalDataDto?: UpdateGeographicalDataDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GeographicalDataDto>>;
+    public apiVersionGeographicalDataIdPut(id: number, version: string, updateGeographicalDataDto?: UpdateGeographicalDataDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GeographicalDataDto>>;
+    public apiVersionGeographicalDataIdPut(id: number, version: string, updateGeographicalDataDto?: UpdateGeographicalDataDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling apiV1GeographicalDataIdPut.');
+            throw new Error('Required parameter id was null or undefined when calling apiVersionGeographicalDataIdPut.');
+        }
+        if (version === null || version === undefined) {
+            throw new Error('Required parameter version was null or undefined when calling apiVersionGeographicalDataIdPut.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -254,7 +274,7 @@ export class GeographicalDataService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/v1/GeographicalData/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int32"})}`;
+        let localVarPath = `/api/${this.configuration.encodeParam({name: "version", value: version, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/GeographicalData/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int32"})}`;
         const { basePath, withCredentials } = this.configuration;
         return this.httpClient.request<GeographicalDataDto>('put', `${basePath}${localVarPath}`,
             {
@@ -271,14 +291,91 @@ export class GeographicalDataService extends BaseService {
     }
 
     /**
+     * @param version 
+     * @param page 
+     * @param pageSize 
+     * @param search 
+     * @param sortBy 
+     * @param sortDirection 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, search?: string, sortBy?: string, sortDirection?: SortDirection, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<GeographicalDataDtoPagedResult>;
+    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, search?: string, sortBy?: string, sortDirection?: SortDirection, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GeographicalDataDtoPagedResult>>;
+    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, search?: string, sortBy?: string, sortDirection?: SortDirection, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GeographicalDataDtoPagedResult>>;
+    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, search?: string, sortBy?: string, sortDirection?: SortDirection, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (version === null || version === undefined) {
+            throw new Error('Required parameter version was null or undefined when calling apiVersionGeographicalDataPagedGet.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>page, 'Page');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>pageSize, 'PageSize');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>search, 'Search');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>sortBy, 'SortBy');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>sortDirection, 'SortDirection');
+
+        let localVarHeaders = this.defaultHeaders;
+
+        const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'text/plain',
+            'application/json',
+            'text/json'
+        ]);
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        const localVarHttpContext: HttpContext = options?.context ?? new HttpContext();
+
+        const localVarTransferCache: boolean = options?.transferCache ?? true;
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/${this.configuration.encodeParam({name: "version", value: version, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/GeographicalData/paged`;
+        const { basePath, withCredentials } = this.configuration;
+        return this.httpClient.request<GeographicalDataDtoPagedResult>('get', `${basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                ...(withCredentials ? { withCredentials } : {}),
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param version 
      * @param createGeographicalDataDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiV1GeographicalDataPost(createGeographicalDataDto?: CreateGeographicalDataDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<GeographicalDataDto>;
-    public apiV1GeographicalDataPost(createGeographicalDataDto?: CreateGeographicalDataDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GeographicalDataDto>>;
-    public apiV1GeographicalDataPost(createGeographicalDataDto?: CreateGeographicalDataDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GeographicalDataDto>>;
-    public apiV1GeographicalDataPost(createGeographicalDataDto?: CreateGeographicalDataDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public apiVersionGeographicalDataPost(version: string, createGeographicalDataDto?: CreateGeographicalDataDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<GeographicalDataDto>;
+    public apiVersionGeographicalDataPost(version: string, createGeographicalDataDto?: CreateGeographicalDataDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GeographicalDataDto>>;
+    public apiVersionGeographicalDataPost(version: string, createGeographicalDataDto?: CreateGeographicalDataDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GeographicalDataDto>>;
+    public apiVersionGeographicalDataPost(version: string, createGeographicalDataDto?: CreateGeographicalDataDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (version === null || version === undefined) {
+            throw new Error('Required parameter version was null or undefined when calling apiVersionGeographicalDataPost.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -318,7 +415,7 @@ export class GeographicalDataService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/v1/GeographicalData`;
+        let localVarPath = `/api/${this.configuration.encodeParam({name: "version", value: version, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/GeographicalData`;
         const { basePath, withCredentials } = this.configuration;
         return this.httpClient.request<GeographicalDataDto>('post', `${basePath}${localVarPath}`,
             {

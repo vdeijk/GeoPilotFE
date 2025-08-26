@@ -26,7 +26,7 @@ export class GeographicalDataFormComponent implements OnInit {
       this.id = params.get('id');
       this.isEditMode = !!this.id;
       if (this.isEditMode && this.id) {
-        const data = await firstValueFrom(this.geographicalDataService.apiV1GeographicalDataIdGet(Number(this.id)));
+        const data = await firstValueFrom(this.geographicalDataService.apiVersionGeographicalDataIdGet(Number(this.id), '1'));
         if (data) {
           this.formPageService.patchValue(data);
         }
