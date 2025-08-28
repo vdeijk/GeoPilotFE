@@ -15,8 +15,8 @@ export class GeographicalDataFormComponent implements OnInit {
   id: string | null = null;
 
   constructor(
-    private route: ActivatedRoute,
     public formPageService: FormPageService, 
+    private route: ActivatedRoute,
     private router: Router,
     private geographicalDataService: GeographicalDataService
   ) {}

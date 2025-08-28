@@ -17,9 +17,10 @@ import { routes } from './app.routes';
 import { GlobalErrorHandler } from './utility/global-error-handler';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { Configuration, provideApi } from './api/generated';
+import { provideApi } from './api/generated';
 import { environment } from '../environments/environment';
 import { SpinnerComponent } from './reusables/spinner/spinner.component';
+import { PaginationComponent } from './containers/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SpinnerComponent } from './reusables/spinner/spinner.component';
     AccordionComponent,
     FooterComponent,
     FiltersBarComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,12 +44,12 @@ import { SpinnerComponent } from './reusables/spinner/spinner.component';
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    provideApi({ basePath: environment.apiUrl })
+    provideApi({ basePath: environment.apiUrl }),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

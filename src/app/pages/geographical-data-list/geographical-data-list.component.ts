@@ -15,8 +15,14 @@ import { takeUntil } from 'rxjs/operators';
 export class GeographicalDataListComponent implements OnDestroy {
   columns: TableHeaderModel<GeographicalData>[] = tableHeaders;
   data: GeographicalData[] = [];
-  // Filtering now handled by backend
+  currentPage: number = 1;
+  totalPages: number = 1;
+  pageSize: number = 20;
+  totalItems: number = 0;
   private destroy$ = new Subject<void>();
+  private currentSearch: string = '';
+  private currentSortField: string = this.tablePageService['curSortField'];
+  private currentSortDirection: (typeof this.tablePageService['curSortDirection']) = this.tablePageService['curSortDirection'];
 
   constructor(
     public tablePageService: TablePageService,
@@ -24,8 +30,18 @@ export class GeographicalDataListComponent implements OnDestroy {
   ) {
     this.tablePageService.data$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(apiData => {
-        this.data = apiData;
+      .subscribe((apiData: any) => {
+        if (Array.isArray(apiData)) {
+          this.data = apiData;
+        } else if (apiData && typeof apiData === 'object') {
+          this.data = apiData.items ?? [];
+          this.totalItems = apiData.totalCount ?? 0;
+          this.totalPages = apiData.totalPages ?? 1;
+          this.currentPage = apiData.page ?? 1;
+          this.pageSize = apiData.pageSize ?? 20;
+        } else {
+          this.data = [];
+        }
       });
   }
 
@@ -35,12 +51,39 @@ export class GeographicalDataListComponent implements OnDestroy {
   }
 
   onSort(event: { field: string, direction: 0 | 1 }) {
-    this.tablePageService.fetchTableData(event.field, event.direction);
+    this.currentSortField = event.field;
+    this.currentSortDirection = event.direction;
+    this.tablePageService.fetchTableData(
+      this.currentSortField,
+      this.currentSortDirection,
+      this.currentSearch,
+      1
+    );
   }
 
   onRowClick(row: GeographicalData) {
     if (row && row.id) {
       this.router.navigate(['/edit', row.id]);
     }
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.tablePageService.fetchTableData(
+      this.currentSortField,
+      this.currentSortDirection,
+      this.currentSearch,
+      page
+    );
+  }
+  
+  onFilterChange(filters: { [key: string]: string }) {
+    this.currentSearch = Object.values(filters).filter(Boolean).join(' ');
+    this.tablePageService.fetchTableData(
+      this.currentSortField,
+      this.currentSortDirection,
+      this.currentSearch,
+      1
+    );
   }
 }

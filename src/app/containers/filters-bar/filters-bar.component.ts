@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { filterFields } from '../../data/geographical-data';
 
 @Component({
@@ -8,8 +8,12 @@ import { filterFields } from '../../data/geographical-data';
 })
 export class FiltersBarComponent {
   filterFields = filterFields;
+  filterValues: { [key: string]: string } = {};
 
-  // Filtering now handled by backend; remove FiltersService
+  @Output() filterChange = new EventEmitter<{ [key: string]: string }>();
 
-  // Implement backend filter logic here if needed
+  onFilterInput(key: string, value: string | number) {
+    this.filterValues[key] = String(value);
+    this.filterChange.emit({ ...this.filterValues });
+  }
 }

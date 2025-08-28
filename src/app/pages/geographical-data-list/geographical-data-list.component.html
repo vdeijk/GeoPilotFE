@@ -1,10 +1,17 @@
 <div class="geo-list-container">
   <h2 class="geo-list-h2">Geographical Data</h2>
-  <app-filters-bar></app-filters-bar>
- <app-table 
-  [columns]="columns" 
-  [data]="data"
-  (sort)="onSort($event)"
-  (rowClick)="onRowClick($event)">
-</app-table>
+  <app-filters-bar (filterChange)="onFilterChange($event)"></app-filters-bar>
+  <app-table 
+    [columns]="columns" 
+    [data]="data"
+    (sort)="onSort($event)"
+    (rowClick)="onRowClick($event)">
+  </app-table>
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    [pageSize]="pageSize"
+    [totalItems]="totalItems"
+    (pageChange)="onPageChange($event)">
+  </app-pagination>
 </div>

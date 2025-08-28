@@ -5,5 +5,7 @@
     [label]="field.label"
     [required]="field.required || false"
     [maxLength]="field.maxLength"
+    [value]="filterValues[field.key] || ''"
+    (valueChange)="onFilterInput(field.key, $event)"
   ></app-text-input>
 </div>

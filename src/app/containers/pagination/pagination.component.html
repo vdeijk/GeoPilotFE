@@ -1,0 +1,27 @@
+<nav class="pagination-container">
+  <ul class="pagination-list">
+    <li>
+      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">&laquo;</button>
+    </li>
+    <li *ngFor="let page of pages">
+      <ng-container *ngIf="page === '...'; else pageBtn">
+        <span class="pagination-ellipsis">&hellip;</span>
+      </ng-container>
+      <ng-template #pageBtn>
+        <button
+          (click)="goToPage(page)"
+          [class.active]="page === currentPage"
+          [disabled]="page === currentPage"
+        >
+          {{ page }}
+        </button>
+      </ng-template>
+    </li>
+    <li>
+      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">&raquo;</button>
+    </li>
+  </ul>
+  <span class="pagination-info">
+    Page {{ currentPage }} of {{ totalPages }} ({{ totalItems }} items)
+  </span>
+</nav>
