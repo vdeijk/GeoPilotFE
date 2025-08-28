@@ -10,6 +10,7 @@ export class PaginationNavButtonComponent {
   @Input() ariaLabel = '';
   @Output() navClick = new EventEmitter<void>();
 
+  // Emits navigation event if not disabled
   onClick() {
     if (!this.disabled) {
       this.navClick.emit();

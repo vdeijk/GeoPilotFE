@@ -13,6 +13,7 @@ export class ButtonComponent {
   @Input() customStyles?: { [key: string]: string };
   @Output() clicked = new EventEmitter<void>();
 
+  // Emits click event if not disabled
   onClick() {
     if (!this.disabled) {
       this.clicked.emit();

@@ -6,5 +6,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./logout-button.component.scss']
 })
 export class LogoutButtonComponent {
+  // Emits logout event when button is clicked
   @Output() logout = new EventEmitter<void>();
 }

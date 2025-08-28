@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
+  // Current year for copyright display
   currentYear = new Date().getFullYear();
 }

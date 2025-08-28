@@ -9,6 +9,7 @@ export class AccordionComponent {
   @Input() title: string = '';
   expanded = false;
 
+  // Toggles the expanded/collapsed state
   toggle() {
     this.expanded = !this.expanded;
   }

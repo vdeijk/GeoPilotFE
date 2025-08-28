@@ -24,17 +24,21 @@ export class TextInputComponent implements ControlValueAccessor {
   @Input() type: string = 'text';
   @Output() valueChange = new EventEmitter<string | number>();
 
+  // Internal change/touch handlers for ControlValueAccessor
   private onChange: (value: string | number) => void = () => {};
   private onTouched: () => void = () => {};
 
+  // Writes value from parent form
   writeValue(value: string | number): void {
     this.value = value ?? '';
   }
 
+  // Registers change handler from parent form
   registerOnChange(fn: (value: string | number) => void): void {
     this.onChange = fn;
   }
 
+  // Registers touch handler from parent form
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }

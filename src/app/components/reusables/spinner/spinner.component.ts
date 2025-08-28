@@ -6,5 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent {
+  // Controls spinner visibility
   @Input() visible = false;
 }

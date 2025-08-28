@@ -12,7 +12,9 @@ export class TablePageService {
     SortDirection.NUMBER_0;
   curPage: number = 1;
 
+  // Observable for table data
   data$ = new BehaviorSubject<any>(null);
+  // Observable for filter/sort/search state
   filter$ = new BehaviorSubject<{
     sortField: string;
     sortDirection: (typeof SortDirection)[keyof typeof SortDirection];
@@ -29,6 +31,7 @@ export class TablePageService {
     private geographicalDataService: GeographicalDataService,
     private loadingService: LoadingService
   ) {
+    // Subscribe to filter changes and fetch table data
     this.filter$.pipe(debounceTime(400)).subscribe((params) => {
       const { sortField, sortDirection, search, page } = params;
       this._fetchTableData(sortField, sortDirection, search, page);

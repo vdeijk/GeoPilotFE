@@ -10,14 +10,17 @@ import { AuthService } from '@auth0/auth0-angular';
 export class HeaderComponent {
   constructor(private router: Router, public auth: AuthService) {}
 
+  // Logs out the user using Auth0
   onLogout() {
     this.auth.logout({ logoutParams: { returnTo: window.location.origin } });
   }
 
+  // Returns true if the current route is an edit page
   get isEditPage(): boolean {
     return this.router.url.startsWith('/edit/');
   }
 
+  // Returns true if the current route is the add page
   get isAddPage(): boolean {
     return this.router.url === '/add';
   }

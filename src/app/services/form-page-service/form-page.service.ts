@@ -22,6 +22,7 @@ export class FormPageService {
     private geographicalDataService: GeographicalDataService,
     private tablePageService: TablePageService
   ) {
+    // Build form group from field config
     const group: { [key in keyof GeographicalData]?: any } = {};
     (fields as GeographicalFieldConfig<GeographicalData>[])
       .filter((f) => f.showInForm)
@@ -34,6 +35,7 @@ export class FormPageService {
     this.formSubject = new BehaviorSubject<FormGroup>(form);
   }
 
+  // Returns the current form group
   get form(): FormGroup {
     return this.formSubject.value;
   }

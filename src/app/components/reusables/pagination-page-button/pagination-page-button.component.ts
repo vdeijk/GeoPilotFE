@@ -11,6 +11,7 @@ export class PaginationPageButtonComponent {
   @Input() disabled = false;
   @Output() pageClick = new EventEmitter<number>();
 
+  // Emits page number when clicked, if not disabled
   onClick() {
     if (!this.disabled && typeof this.page === 'number') {
       this.pageClick.emit(this.page);

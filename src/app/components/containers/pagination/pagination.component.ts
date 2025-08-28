@@ -12,6 +12,7 @@ export class PaginationComponent {
   @Input() totalItems: number = 0;
   @Output() pageChange = new EventEmitter<number>();
 
+  // Computes the list of pages to display in the pagination bar
   get pages(): (number | string)[] {
     const pages: (number | string)[] = [];
     const windowSize = 5;
@@ -37,6 +38,7 @@ export class PaginationComponent {
     return pages;
   }
 
+  // Emits the selected page number when a page is clicked
   goToPage(page: number | string) {
     if (typeof page !== 'number') return;
     if (page >= 1 && page <= this.totalPages && page !== this.curPage) {

@@ -14,19 +14,26 @@ export class GeographicalDataFormComponent implements OnInit {
   isEditMode = false;
   id: string | null = null;
 
+  // Subscribe to data changes and update table state
   constructor(
-    public formPageService: FormPageService, 
+    public formPageService: FormPageService,
     private route: ActivatedRoute,
     private router: Router,
     private geographicalDataService: GeographicalDataService
   ) {}
 
+  // Initializes form state based on route params
   async ngOnInit() {
     this.route.paramMap.subscribe(async (params) => {
       this.id = params.get('id');
       this.isEditMode = !!this.id;
       if (this.isEditMode && this.id) {
-        const data = await firstValueFrom(this.geographicalDataService.apiVersionGeographicalDataIdGet(Number(this.id), '1'));
+        const data = await firstValueFrom(
+          this.geographicalDataService.apiVersionGeographicalDataIdGet(
+            Number(this.id),
+            '1'
+          )
+        );
         if (data) {
           this.formPageService.patchValue(data);
         }
@@ -36,6 +43,7 @@ export class GeographicalDataFormComponent implements OnInit {
     });
   }
 
+  // Deletes the current item and navigates back to list
   onDelete() {
     if (this.id) {
       this.formPageService.delete(Number(this.id), () => {

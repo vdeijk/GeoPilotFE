@@ -12,6 +12,7 @@ export class FiltersBarComponent {
 
   @Output() filterChange = new EventEmitter<{ [key: string]: string }>();
 
+  // Handles filter input changes and emits updated filter values
   onFilterInput(key: string, value: string | number) {
     this.filterValues[key] = String(value);
     this.filterChange.emit({ ...this.filterValues });
