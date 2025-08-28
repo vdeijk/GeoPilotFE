@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1rem 0;
+  margin: var(--spacing-small) 0;
 }
 
 .pagination-list {
@@ -13,26 +13,8 @@
   margin: 0;
 }
 
-.pagination-list button {
-  padding: 0.5rem 1rem;
-  border: none;
-  background: #eee;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.pagination-list button.active {
-  background: #007bff;
-  color: #fff;
-}
-
-.pagination-list button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
 .pagination-info {
-  margin-left: 1rem;
-  font-size: 0.9rem;
-  color: #555;
+  margin-left: var(--spacing-small);
+  font-size: var(--font-size-xxsmall);
+  color: var(--color-black);
 }

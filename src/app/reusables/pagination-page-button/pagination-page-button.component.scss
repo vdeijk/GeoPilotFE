@@ -1,19 +1,19 @@
 .pagination-page-btn {
-  background: none;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-grey);
   border-radius: 3px;
-  font-size: 1em;
-  padding: 0.5em 0.9em;
+  font-size: var(--font-size-xxsmall);
+  padding: 0.5rem var(--spacing-small);
   margin: 0 2px;
   cursor: pointer;
   color: inherit;
-  transition: background 0.2s, border-color 0.2s;
+  transition: all border-color 0.2s;
 }
 .pagination-page-btn.active {
-  background: #007bff;
-  color: #fff;
-  border-color: #007bff;
+  background:  var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
 }
+
 .pagination-page-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
