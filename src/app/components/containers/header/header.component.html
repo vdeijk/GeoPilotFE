@@ -8,4 +8,5 @@
     <div class="header-context-indicator">
         <ng-container *ngIf="isEditPage">Editing Data</ng-container>
     </div>
+    <app-logout-button (logout)="onLogout()"></app-logout-button>
 </header>

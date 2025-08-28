@@ -19,10 +19,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { provideApi } from './api/generated';
 import { environment } from '../environments/environment';
+import { AuthModule } from '@auth0/auth0-angular';
+import { auth0Config } from './auth0.config';
 import { SpinnerComponent } from './components/reusables/spinner/spinner.component';
 import { PaginationComponent } from './components/containers/pagination/pagination.component';
 import { PaginationNavButtonComponent } from './components/reusables/pagination-nav-button/pagination-nav-button.component';
 import { PaginationPageButtonComponent } from './components/reusables/pagination-page-button/pagination-page-button.component';
+import { LogoutButtonComponent } from './components/reusables/logout-button/logout-button.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,10 @@ import { PaginationPageButtonComponent } from './components/reusables/pagination
     PaginationComponent,
     PaginationNavButtonComponent,
     PaginationPageButtonComponent,
+    // Added LogoutButtonComponent
+    // Make sure to import it at the top
+    // import { LogoutButtonComponent } from './reusables/logout-button/logout-button.component';
+    LogoutButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +56,7 @@ import { PaginationPageButtonComponent } from './components/reusables/pagination
     RouterModule.forRoot(routes),
     HttpClientModule,
     ToastrModule.forRoot(),
+  AuthModule.forRoot(auth0Config),
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },

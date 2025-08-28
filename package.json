@@ -2,12 +2,14 @@
   "name": "geographical-data",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "openapi:generate": "openapi-generator-cli generate -i http://localhost:5053/swagger/v1/swagger.json -g typescript-angular -o src/app/api/generated --skip-validate-spec"
+  "ng": "ng",
+  "prestart": "node scripts/generate-env.js",
+  "prebuild": "node scripts/generate-env.js",
+  "start": "ng serve",
+  "build": "ng build",
+  "watch": "ng build --watch --configuration development",
+  "test": "ng test",
+  "openapi:generate": "openapi-generator-cli generate -i http://localhost:5053/swagger/v1/swagger.json -g typescript-angular -o src/app/api/generated --skip-validate-spec"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +21,8 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@auth0/auth0-angular": "^2.2.3",
+    "dotenv": "^17.2.1",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
