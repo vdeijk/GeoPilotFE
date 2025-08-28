@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { tableHeaders } from '../../../data/geographical-data';
@@ -16,28 +16,26 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class GeographicalDataListComponent implements OnDestroy {
   columns: TableHeaderModel<GeographicalData>[] = tableHeaders;
-  data: GeographicalData[] = [];
+  tableData: GeographicalData[] = [];
   curPage: number = 1;
   totalPages: number = 1;
   pageSize: number = 20;
   totalItems: number = 0;
   private destroy$ = new Subject<void>();
-  private currentSearch: string = '';
-  private currentSortField: string = this.tablePageService['curSortField'];
-  private currentSortDirection: (typeof this.tablePageService)['curSortDirection'] =
-    this.tablePageService['curSortDirection'];
+  private curSearch: string = '';
 
   constructor(
     public tablePageService: TablePageService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.tablePageService.data$
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
         if (Array.isArray(apiData)) {
-          this.data = apiData;
+          this.tableData = [...apiData];
         } else if (apiData && typeof apiData === 'object') {
-          this.data = apiData.items ?? [];
+          this.tableData = apiData.items ? [...apiData.items] : [];
           this.totalItems = apiData.totalCount ?? 0;
           this.totalPages = apiData.totalPages ?? 1;
           if (
@@ -49,8 +47,9 @@ export class GeographicalDataListComponent implements OnDestroy {
           }
           this.pageSize = apiData.pageSize ?? 20;
         } else {
-          this.data = [];
+          this.tableData = [];
         }
+        this.cdr.markForCheck();
       });
   }
 
@@ -60,12 +59,10 @@ export class GeographicalDataListComponent implements OnDestroy {
   }
 
   onSort(event: { field: string; direction: 0 | 1 }) {
-    this.currentSortField = event.field;
-    this.currentSortDirection = event.direction;
     this.tablePageService.fetchTableData(
-      this.currentSortField,
-      this.currentSortDirection,
-      this.currentSearch,
+      event.field,
+      event.direction,
+      this.curSearch,
       1
     );
   }
@@ -79,19 +76,19 @@ export class GeographicalDataListComponent implements OnDestroy {
   onPageChange(page: number) {
     this.curPage = page;
     this.tablePageService.fetchTableData(
-      this.currentSortField,
-      this.currentSortDirection,
-      this.currentSearch,
+      this.tablePageService.curSortField,
+      this.tablePageService.curSortDirection,
+      this.curSearch,
       page
     );
   }
 
   onFilterChange(filters: { [key: string]: string }) {
-    this.currentSearch = Object.values(filters).filter(Boolean).join(' ');
+    this.curSearch = Object.values(filters).filter(Boolean).join(' ');
     this.tablePageService.fetchTableData(
-      this.currentSortField,
-      this.currentSortDirection,
-      this.currentSearch,
+      this.tablePageService.curSortField,
+      this.tablePageService.curSortDirection,
+      this.curSearch,
       1
     );
   }
