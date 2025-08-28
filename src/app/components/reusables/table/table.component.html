@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="table-row" *ngFor="let row of data" (click)="onRowClick(row)" style="cursor:pointer" role="row" tabindex="0">
+  <tr class="table-row" *ngFor="let row of data; trackBy: trackById" (click)="onRowClick(row)" style="cursor:pointer" role="row" tabindex="0">
         <td class="table-cell" *ngFor="let col of columns" role="cell">
           <ng-container *ngIf="col.id !== 'actions'; else actionsCell">
             {{ getCellValue(row, col.id) }}

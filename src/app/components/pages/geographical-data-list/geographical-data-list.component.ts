@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { tableHeaders } from '../../../data/geographical-data';
 import { TableHeaderModel } from '../../../common/interfaces/table-header-model';
@@ -11,6 +12,7 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-geographical-data-list',
   templateUrl: './geographical-data-list.component.html',
   styleUrls: ['./geographical-data-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeographicalDataListComponent implements OnDestroy {
   columns: TableHeaderModel<GeographicalData>[] = tableHeaders;

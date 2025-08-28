@@ -36,6 +36,11 @@ export class TableComponent {
     this.rowClick.emit(row);
   }
 
+  // trackBy function for ngFor to optimize rendering
+  trackById(index: number, item: GeographicalData): any {
+    return item.id ?? index;
+  }
+
   // Returns cell value for a given row and column
   getCellValue(row: GeographicalData, colId: keyof GeographicalData | string): any {
     if (colId === 'actions') return null;
