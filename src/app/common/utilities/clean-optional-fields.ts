@@ -1,4 +1,4 @@
-import { GeographicalData } from '../api/generated/model/geographicalData';
+import { GeographicalData } from '../../api/generated/model/geographicalData';
 
 const optionalNumberFields: (keyof GeographicalData)[] = [
   'oppervlakteverblijfsobject',

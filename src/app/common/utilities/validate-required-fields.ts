@@ -1,4 +1,4 @@
-import { GeographicalData } from '../api/generated/model/geographicalData';
+import { GeographicalData } from '../../api/generated/model/geographicalData';
 
 export function validateRequiredFields(obj: GeographicalData): boolean {
   if (obj.huisnummer == null || Number.isNaN(obj.huisnummer)) {

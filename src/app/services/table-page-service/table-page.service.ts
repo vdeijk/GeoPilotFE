@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
-import { GeographicalDataService } from '../api/generated/api/geographicalData.service';
-import { SortDirection } from '../api/generated/model/sortDirection';
-import { LoadingService } from './loading.service';
+import { GeographicalDataService } from '../../api/generated/api/geographicalData.service';
+import { SortDirection } from '../../api/generated/model/sortDirection';
+import { LoadingService } from '../loading-service/loading.service';
 
 @Injectable({ providedIn: 'root' })
 export class TablePageService {

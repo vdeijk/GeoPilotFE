@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { filterFields } from '../../data/geographical-data';
+import { filterFields } from '../../../data/geographical-data';
 
 @Component({
   selector: 'app-filters-bar',

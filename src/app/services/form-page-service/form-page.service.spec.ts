@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { FormPageService } from './form-page.service';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { GeographicalDataService } from '../api/generated/api/geographicalData.service';
-import { TablePageService } from './table-page.service';
+import { GeographicalDataService } from '../../api/generated/api/geographicalData.service';
+import { TablePageService } from '../table-page-service/table-page.service';
 
 // Mocks
 class MockToastr {

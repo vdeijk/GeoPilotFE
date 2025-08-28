@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { TableHeaderModel } from '../../interfaces/table-header-model';
-import { GeographicalData } from '../../api/generated/model/geographicalData';
+import { TableHeaderModel } from '../../../common/interfaces/table-header-model';
+import { GeographicalData } from '../../../api/generated/model/geographicalData';
 
 @Component({
   selector: 'app-table',

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormPageService } from '../../services/form-page.service';
-import { GeographicalData } from '../../api/generated/model/geographicalData';
+import { FormPageService } from '../../../services/form-page-service/form-page.service';
+import { GeographicalData } from '../../../api/generated/model/geographicalData';
 import { firstValueFrom } from 'rxjs';
-import { GeographicalDataService } from '../../api/generated/api/geographicalData.service';
+import { GeographicalDataService } from '../../../api/generated/api/geographicalData.service';
 
 @Component({
   selector: 'app-geographical-data-form',

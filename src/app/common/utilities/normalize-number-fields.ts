@@ -1,5 +1,5 @@
-import fields from '../data/geographical-data';
-import { GeographicalData } from '../api/generated/model/geographicalData';
+import fields from '../../data/geographical-data';
+import { GeographicalData } from '../../api/generated/model/geographicalData';
 
 type NumberKeys = Extract<{
   [K in keyof GeographicalData]: GeographicalData[K] extends number | null | undefined ? K : never

@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { tableHeaders } from '../../data/geographical-data';
-import { TableHeaderModel } from '../../interfaces/table-header-model';
-import { TablePageService } from '../../services/table-page.service';
-import { GeographicalData } from '../../api/generated/model/geographicalData';
+import { tableHeaders } from '../../../data/geographical-data';
+import { TableHeaderModel } from '../../../common/interfaces/table-header-model';
+import { TablePageService } from '../../../services/table-page-service/table-page.service';
+import { GeographicalData } from '../../../api/generated/model/geographicalData';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

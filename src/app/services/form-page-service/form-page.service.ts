@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import fields, { GeographicalFieldConfig } from '../data/geographical-data';
-import { normalizeNumberFields } from '../utility/normalize-number-fields';
-import { cleanOptionalFields } from '../utility/clean-optional-fields';
+import fields, { GeographicalFieldConfig } from '../../data/geographical-data';
+import { normalizeNumberFields } from '../../common/utilities/normalize-number-fields';
+import { cleanOptionalFields } from '../../common/utilities/clean-optional-fields';
 import { ToastrService } from 'ngx-toastr';
-import { GeographicalData } from '../api/generated/model/geographicalData';
-import { GeographicalDataService } from '../api/generated/api/geographicalData.service';
-import { TablePageService } from './table-page.service';
-import { CreateGeographicalDataDto } from '../api/generated/model/createGeographicalDataDto';
-import { UpdateGeographicalDataDto } from '../api/generated/model/updateGeographicalDataDto';
+import { GeographicalData } from '../../api/generated/model/geographicalData';
+import { GeographicalDataService } from '../../api/generated/api/geographicalData.service';
+import { TablePageService } from '../table-page-service/table-page.service';
+import { CreateGeographicalDataDto } from '../../api/generated/model/createGeographicalDataDto';
+import { UpdateGeographicalDataDto } from '../../api/generated/model/updateGeographicalDataDto';
 
 @Injectable({ providedIn: 'root' })
 export class FormPageService {

@@ -1,7 +1,7 @@
 // Import the generated interface from OpenAPI Generator
 import { GeographicalData } from '../api/generated/model/geographicalData';
-import { TableHeaderModel } from "../interfaces/table-header-model";
-import { InputFieldModel } from "../interfaces/input-field-model";
+import { TableHeaderModel } from "../common/interfaces/table-header-model";
+import { InputFieldModel } from "../common/interfaces/input-field-model";
 
 export interface GeographicalFieldConfig<T = GeographicalData> {
   key: keyof T;
