@@ -18,8 +18,6 @@ export interface GeographicalFieldConfig<T = GeographicalData> {
   options?: { label: string; value: string }[];
 }
 
-type GeographicalDataKeys = keyof GeographicalData;
-
 const fields: GeographicalFieldConfig<GeographicalData>[] = [
   // Address section
   { key: "openbareruimte", label: "Openbare ruimte", type: "text", required: true, showInTable: true, showInForm: true, showInFilter: true, sortable: true, placeholder: "Openbare ruimte", maxLength: 50, section: "Address" },

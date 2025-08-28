@@ -12,8 +12,9 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-geographical-data-list',
   templateUrl: './geographical-data-list.component.html',
   styleUrls: ['./geographical-data-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
+// Displays a paginated, sortable, and filterable list of geographical data
 export class GeographicalDataListComponent implements OnDestroy {
   columns: TableHeaderModel<GeographicalData>[] = tableHeaders;
   tableData: GeographicalData[] = [];
@@ -21,7 +22,9 @@ export class GeographicalDataListComponent implements OnDestroy {
   totalPages: number = 1;
   pageSize: number = 20;
   totalItems: number = 0;
+  // Used to clean up subscriptions
   private destroy$ = new Subject<void>();
+  // Current search/filter string
   private curSearch: string = '';
 
   constructor(
@@ -29,6 +32,7 @@ export class GeographicalDataListComponent implements OnDestroy {
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {
+    // Listen for data changes and update table state
     this.tablePageService.data$
       .pipe(takeUntil(this.destroy$))
       .subscribe((apiData: any) => {
@@ -53,11 +57,13 @@ export class GeographicalDataListComponent implements OnDestroy {
       });
   }
 
+  // Cleans up subscriptions when component is destroyed
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
+  // Handles sorting events from the table
   onSort(event: { field: string; direction: 0 | 1 }) {
     this.tablePageService.fetchTableData(
       event.field,
@@ -67,12 +73,14 @@ export class GeographicalDataListComponent implements OnDestroy {
     );
   }
 
+  // Navigates to the edit page for the selected row
   onRowClick(row: GeographicalData) {
     if (row && row.id) {
       this.router.navigate(['/edit', row.id]);
     }
   }
 
+  // Handles pagination changes
   onPageChange(page: number) {
     this.curPage = page;
     this.tablePageService.fetchTableData(
@@ -83,6 +91,7 @@ export class GeographicalDataListComponent implements OnDestroy {
     );
   }
 
+  // Handles filter changes from the filters bar
   onFilterChange(filters: { [key: string]: string }) {
     this.curSearch = Object.values(filters).filter(Boolean).join(' ');
     this.tablePageService.fetchTableData(

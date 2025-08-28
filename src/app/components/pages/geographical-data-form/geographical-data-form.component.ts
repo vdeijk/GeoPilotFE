@@ -14,7 +14,6 @@ export class GeographicalDataFormComponent implements OnInit {
   isEditMode = false;
   id: string | null = null;
 
-  // Subscribe to data changes and update table state
   constructor(
     public formPageService: FormPageService,
     private route: ActivatedRoute,
