@@ -6,7 +6,7 @@
         <a routerLink="/add" routerLinkActive="router-link-active">Add Item</a>
     </nav>
     <div class="header-context-indicator">
-        <ng-container *ngIf="isEditPage">Editing Data</ng-container>
+        <ng-container *ngIf="isEditPage">Edit Item</ng-container>
     </div>
     <app-logout-button (logout)="onLogout()"></app-logout-button>
 </header>
