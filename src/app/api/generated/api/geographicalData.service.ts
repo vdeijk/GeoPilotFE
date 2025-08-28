@@ -294,16 +294,19 @@ export class GeographicalDataService extends BaseService {
      * @param version 
      * @param page 
      * @param pageSize 
-     * @param search 
+     * @param openbareruimte 
+     * @param postcode 
+     * @param woonplaats 
+     * @param huisnummer 
      * @param sortBy 
      * @param sortDirection 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, search?: string, sortBy?: string, sortDirection?: SortDirection, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<GeographicalDataDtoPagedResult>;
-    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, search?: string, sortBy?: string, sortDirection?: SortDirection, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GeographicalDataDtoPagedResult>>;
-    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, search?: string, sortBy?: string, sortDirection?: SortDirection, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GeographicalDataDtoPagedResult>>;
-    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, search?: string, sortBy?: string, sortDirection?: SortDirection, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, openbareruimte?: string, postcode?: string, woonplaats?: string, huisnummer?: string, sortBy?: string, sortDirection?: SortDirection, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<GeographicalDataDtoPagedResult>;
+    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, openbareruimte?: string, postcode?: string, woonplaats?: string, huisnummer?: string, sortBy?: string, sortDirection?: SortDirection, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GeographicalDataDtoPagedResult>>;
+    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, openbareruimte?: string, postcode?: string, woonplaats?: string, huisnummer?: string, sortBy?: string, sortDirection?: SortDirection, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GeographicalDataDtoPagedResult>>;
+    public apiVersionGeographicalDataPagedGet(version: string, page?: number, pageSize?: number, openbareruimte?: string, postcode?: string, woonplaats?: string, huisnummer?: string, sortBy?: string, sortDirection?: SortDirection, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (version === null || version === undefined) {
             throw new Error('Required parameter version was null or undefined when calling apiVersionGeographicalDataPagedGet.');
         }
@@ -314,7 +317,13 @@ export class GeographicalDataService extends BaseService {
         localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
           <any>pageSize, 'PageSize');
         localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-          <any>search, 'Search');
+          <any>openbareruimte, 'Openbareruimte');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>postcode, 'Postcode');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>woonplaats, 'Woonplaats');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>huisnummer, 'Huisnummer');
         localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
           <any>sortBy, 'SortBy');
         localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,

@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { GeographicalDataService } from '../../api/generated/api/geographicalData.service';
 import { SortDirection } from '../../api/generated/model/sortDirection';
 import { LoadingService } from '../loading-service/loading.service';
+import { TableFilters } from '../../common/interfaces/table-filters';
 
 @Injectable({ providedIn: 'root' })
 export class TablePageService {
@@ -18,12 +19,12 @@ export class TablePageService {
   filter$ = new BehaviorSubject<{
     sortField: string;
     sortDirection: (typeof SortDirection)[keyof typeof SortDirection];
-    search: string;
+    filters: TableFilters;
     page: number;
   }>({
     sortField: this.curSortField,
     sortDirection: this.curSortDirection,
-    search: '',
+    filters: {},
     page: this.curPage,
   });
 
@@ -33,8 +34,8 @@ export class TablePageService {
   ) {
     // Subscribe to filter changes and fetch table data
     this.filter$.pipe(debounceTime(400)).subscribe((params) => {
-      const { sortField, sortDirection, search, page } = params;
-      this._fetchTableData(sortField, sortDirection, search, page);
+      const { sortField, sortDirection, filters, page } = params;
+      this._fetchTableData(sortField, sortDirection, filters, page);
     });
   }
 
@@ -42,28 +43,32 @@ export class TablePageService {
     sortField: string = this.curSortField,
     sortDirection: (typeof SortDirection)[keyof typeof SortDirection] = this
       .curSortDirection,
-    search: string = '',
+    filters: TableFilters = {},
     page: number = this.curPage
   ) {
     this.curSortField = sortField;
     this.curSortDirection = sortDirection;
     this.curPage = page;
-    this.filter$.next({ sortField, sortDirection, search, page });
+    this.filter$.next({ sortField, sortDirection, filters, page });
   }
 
   private _fetchTableData(
     sortField: string,
     sortDirection: (typeof SortDirection)[keyof typeof SortDirection],
-    search: string,
+    filters: TableFilters = {},
     page: number
   ) {
     this.loadingService.setLoading(true);
+    console.log(filters);
     this.geographicalDataService
       .apiVersionGeographicalDataPagedGet(
         '1',
         page,
         20,
-        search,
+        filters.openbareruimte ?? '',
+        filters.postcode ?? '',
+        filters.woonplaats ?? '',
+        filters.huisnummer ?? '',
         sortField,
         sortDirection
       )

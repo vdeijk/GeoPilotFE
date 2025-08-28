@@ -24,8 +24,8 @@ export class GeographicalDataListComponent implements OnDestroy {
   totalItems: number = 0;
   // Used to clean up subscriptions
   private destroy$ = new Subject<void>();
-  // Current search/filter string
-  private curSearch: string = '';
+  // Current filter object
+  private curFilters: { openbareruimte?: string; postcode?: string; woonplaats?: string; huisnummer?: string } = {};
 
   constructor(
     public tablePageService: TablePageService,
@@ -64,11 +64,12 @@ export class GeographicalDataListComponent implements OnDestroy {
   }
 
   // Handles sorting events from the table
+  // Handles sorting events from the table
   onSort(event: { field: string; direction: 0 | 1 }) {
     this.tablePageService.fetchTableData(
       event.field,
       event.direction,
-      this.curSearch,
+      this.curFilters,
       1
     );
   }
@@ -86,18 +87,19 @@ export class GeographicalDataListComponent implements OnDestroy {
     this.tablePageService.fetchTableData(
       this.tablePageService.curSortField,
       this.tablePageService.curSortDirection,
-      this.curSearch,
+      this.curFilters,
       page
     );
   }
 
   // Handles filter changes from the filters bar
-  onFilterChange(filters: { [key: string]: string }) {
-    this.curSearch = Object.values(filters).filter(Boolean).join(' ');
+  // Handles filter changes from the filters bar
+  onFilterChange(filters: { openbareruimte?: string; postcode?: string; woonplaats?: string; huisnummer?: string }) {
+    this.curFilters = filters;
     this.tablePageService.fetchTableData(
       this.tablePageService.curSortField,
       this.tablePageService.curSortDirection,
-      this.curSearch,
+      this.curFilters,
       1
     );
   }
