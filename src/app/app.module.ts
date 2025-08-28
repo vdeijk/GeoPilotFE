@@ -21,6 +21,8 @@ import { provideApi } from './api/generated';
 import { environment } from '../environments/environment';
 import { SpinnerComponent } from './reusables/spinner/spinner.component';
 import { PaginationComponent } from './containers/pagination/pagination.component';
+import { PaginationNavButtonComponent } from './reusables/pagination-nav-button/pagination-nav-button.component';
+import { PaginationPageButtonComponent } from './reusables/pagination-page-button/pagination-page-button.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { PaginationComponent } from './containers/pagination/pagination.componen
     FiltersBarComponent,
     SpinnerComponent,
     PaginationComponent,
+    PaginationNavButtonComponent,
+    PaginationPageButtonComponent,
   ],
   imports: [
     BrowserModule,

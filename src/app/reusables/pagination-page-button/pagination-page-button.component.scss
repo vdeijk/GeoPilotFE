@@ -1,0 +1,20 @@
+.pagination-page-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 1em;
+  padding: 0.5em 0.9em;
+  margin: 0 2px;
+  cursor: pointer;
+  color: inherit;
+  transition: background 0.2s, border-color 0.2s;
+}
+.pagination-page-btn.active {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+.pagination-page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

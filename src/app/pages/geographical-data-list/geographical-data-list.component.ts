@@ -10,19 +10,20 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-geographical-data-list',
   templateUrl: './geographical-data-list.component.html',
-  styleUrls: ['./geographical-data-list.component.scss']
+  styleUrls: ['./geographical-data-list.component.scss'],
 })
 export class GeographicalDataListComponent implements OnDestroy {
   columns: TableHeaderModel<GeographicalData>[] = tableHeaders;
   data: GeographicalData[] = [];
-  currentPage: number = 1;
+  curPage: number = 1;
   totalPages: number = 1;
   pageSize: number = 20;
   totalItems: number = 0;
   private destroy$ = new Subject<void>();
   private currentSearch: string = '';
   private currentSortField: string = this.tablePageService['curSortField'];
-  private currentSortDirection: (typeof this.tablePageService['curSortDirection']) = this.tablePageService['curSortDirection'];
+  private currentSortDirection: (typeof this.tablePageService)['curSortDirection'] =
+    this.tablePageService['curSortDirection'];
 
   constructor(
     public tablePageService: TablePageService,
@@ -37,7 +38,13 @@ export class GeographicalDataListComponent implements OnDestroy {
           this.data = apiData.items ?? [];
           this.totalItems = apiData.totalCount ?? 0;
           this.totalPages = apiData.totalPages ?? 1;
-          this.currentPage = apiData.page ?? 1;
+          if (
+            typeof apiData.page === 'number' &&
+            !isNaN(apiData.page) &&
+            apiData.page > 0
+          ) {
+            this.curPage = apiData.page;
+          }
           this.pageSize = apiData.pageSize ?? 20;
         } else {
           this.data = [];
@@ -50,7 +57,7 @@ export class GeographicalDataListComponent implements OnDestroy {
     this.destroy$.complete();
   }
 
-  onSort(event: { field: string, direction: 0 | 1 }) {
+  onSort(event: { field: string; direction: 0 | 1 }) {
     this.currentSortField = event.field;
     this.currentSortDirection = event.direction;
     this.tablePageService.fetchTableData(
@@ -68,7 +75,7 @@ export class GeographicalDataListComponent implements OnDestroy {
   }
 
   onPageChange(page: number) {
-    this.currentPage = page;
+    this.curPage = page;
     this.tablePageService.fetchTableData(
       this.currentSortField,
       this.currentSortDirection,
@@ -76,7 +83,7 @@ export class GeographicalDataListComponent implements OnDestroy {
       page
     );
   }
-  
+
   onFilterChange(filters: { [key: string]: string }) {
     this.currentSearch = Object.values(filters).filter(Boolean).join(' ');
     this.tablePageService.fetchTableData(

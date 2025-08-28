@@ -1,27 +1,34 @@
 <nav class="pagination-container">
   <ul class="pagination-list">
     <li>
-      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">&laquo;</button>
+      <app-pagination-nav-button
+        [disabled]="curPage === 1"
+        ariaLabel="Previous page"
+        (navClick)="goToPage(curPage - 1)"
+      >&laquo;</app-pagination-nav-button>
     </li>
     <li *ngFor="let page of pages">
       <ng-container *ngIf="page === '...'; else pageBtn">
         <span class="pagination-ellipsis">&hellip;</span>
       </ng-container>
       <ng-template #pageBtn>
-        <button
-          (click)="goToPage(page)"
-          [class.active]="page === currentPage"
-          [disabled]="page === currentPage"
-        >
-          {{ page }}
-        </button>
+        <app-pagination-page-button
+          [page]="page"
+          [active]="page === curPage"
+          [disabled]="page === curPage"
+          (pageClick)="goToPage(page)"
+        ></app-pagination-page-button>
       </ng-template>
     </li>
     <li>
-      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">&raquo;</button>
+      <app-pagination-nav-button
+        [disabled]="curPage === totalPages"
+        ariaLabel="Next page"
+        (navClick)="goToPage(curPage + 1)"
+      >&raquo;</app-pagination-nav-button>
     </li>
   </ul>
   <span class="pagination-info">
-    Page {{ currentPage }} of {{ totalPages }} ({{ totalItems }} items)
+    Page {{ curPage }} of {{ totalPages }} ({{ totalItems }} items)
   </span>
 </nav>

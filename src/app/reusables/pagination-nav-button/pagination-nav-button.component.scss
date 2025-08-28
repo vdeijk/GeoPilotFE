@@ -1,0 +1,13 @@
+.pagination-nav-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  color: inherit;
+  transition: background 0.2s;
+}
+.pagination-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
