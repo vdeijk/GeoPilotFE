@@ -21,6 +21,7 @@ nav a {
   text-decoration: none;
   transition: color 0.3s ease, background 0.3s ease;
   border-radius: var(--border-radius-small);
+  font-size: var(--font-size-small);
 }
 
 nav a:hover {
@@ -36,6 +37,6 @@ nav a.router-link-active {
   min-width: 10rem;
   display: grid;
   align-items: end;
-  font-size: var(--font-size-xsmall);
+  font-size: var(--font-size-small);
   color: var(--color-secondary);
 }

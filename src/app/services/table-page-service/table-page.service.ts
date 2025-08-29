@@ -59,7 +59,6 @@ export class TablePageService {
     page: number
   ) {
     this.loadingService.setLoading(true);
-    console.log(filters);
     this.geographicalDataService
       .apiVersionGeographicalDataPagedGet(
         '1',
